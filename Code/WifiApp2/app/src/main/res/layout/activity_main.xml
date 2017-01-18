@@ -12,21 +12,21 @@
         tools:context="com.example.and.wifiapp.MainActivity">
 
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/layout1">
-        <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/detailsList">
+    <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/layout1">-->
+        <!--<ListView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:id="@+id/detailsList">-->
 
 
-        </ListView>
+        <!--</ListView>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
     <LinearLayout
             android:orientation="vertical"

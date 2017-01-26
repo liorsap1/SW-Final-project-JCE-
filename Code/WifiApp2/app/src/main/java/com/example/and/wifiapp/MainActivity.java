@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         return pressed;
                 }
-            } catch (Exception e) {
+            } catch (Exception e) { b
                 Log.d(TAG, "doInBackground problem");
                 return null;
             }

@@ -1,10 +1,10 @@
 # ROUTER APPLICATION
 <br/>
-<br/>
 
 
 ## Contact Info
 Our Chat
+<br/>
 [![Join the chat at https://gitter.im/jce-il/final_project_sec_home_wifi?utm_source=share-link&utm_medium=link&utm_campaign=share-link](https://badges.gitter.im/robi-y/seproject-team-template.svg)](https://gitter.im/jce-il/final_project_sec_home_wifi?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 <br />
 Contact via Email
@@ -22,7 +22,9 @@ to get all information about the router connected to source device and config th
 ### [User Manual]
 
 ### [Team Page]
+<br/>
 Me as the only developer.
+<br/>
 [![Lior](https://avatars3.githubusercontent.com/u/17621187?v=3&s=80)](https://github.com/liorsap1)
 
 ### Project Documents

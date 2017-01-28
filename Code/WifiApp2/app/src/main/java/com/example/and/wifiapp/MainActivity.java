@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
     Button infoButton;
-    Button stateButton;
+    Button configButton;
 
     TextView Frequency;
     TextView LinkSpeed;
@@ -50,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final Context context = this;
 
         infoButton = (Button) findViewById(R.id.info_button);
+        configButton = (Button)findViewById(R.id.config_route);
+
         Frequency = (TextView) findViewById(R.id.textView);
         LinkSpeed = (TextView) findViewById(R.id.textView2);
         BSSID = (TextView) findViewById(R.id.textView3);
@@ -95,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
                 new LongOperation().execute(pressed);
             }
         });
+        configButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Router.class);
+                startActivity(intent);
+            }
+        });
+
+
 //        stateButton.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View v) {
 //                pressed = "stateButton";

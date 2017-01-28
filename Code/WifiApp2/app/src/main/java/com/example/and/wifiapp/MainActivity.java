@@ -60,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
         NetworkId = (TextView) findViewById(R.id.textView7);
         MacAddress = (TextView) findViewById(R.id.textView8);
         SSID = (TextView) findViewById(R.id.textView9);
-
-        detailsList = (ListView) findViewById(R.id.detailsList);
-
+//        detailsList = (ListView) findViewById(R.id.detailsList);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.listsForInfo, results);
         // Assign adapter to ListView
 //        detailsList.setAdapter(adapter);
@@ -125,18 +123,18 @@ public class MainActivity extends AppCompatActivity {
                 switch (pressed) {
                     case "infoButton":
                         results[0] = "Frequency: " + wifi.getConnectionInfo().getFrequency();
-                        results[1] = "LinkSpeed: " + wifi.getConnectionInfo().getLinkSpeed();
+                        results[1] = "Link Speed: " + wifi.getConnectionInfo().getLinkSpeed();
                         results[2] = "BSSID: " + wifi.getConnectionInfo().getBSSID();
                         results[3] = "Contents: " + wifi.getConnectionInfo().describeContents();
-                        results[4] = "IpAddress: " + wifi.getConnectionInfo().getIpAddress();
-                        results[5] = "NetworkId: " + wifi.getConnectionInfo().getNetworkId();
-                        results[6] = "acAddress: " + wifi.getConnectionInfo().getMacAddress();
+                        results[4] = "Ip Address: " + wifi.getConnectionInfo().getIpAddress();
+                        results[5] = "Network Id: " + wifi.getConnectionInfo().getNetworkId();
+                        results[6] = "Mac Address: " + wifi.getConnectionInfo().getMacAddress();
                         results[7] = "SSID: " + wifi.getConnectionInfo().getSSID();
                     case "stateButton":
                     default:
                         return pressed;
                 }
-            } catch (Exception e) { b
+            } catch (Exception e) {
                 Log.d(TAG, "doInBackground problem");
                 return null;
             }

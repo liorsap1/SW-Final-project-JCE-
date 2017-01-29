@@ -2,6 +2,7 @@ package com.example.and.wifiapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -49,8 +50,6 @@ public class Router extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     public String getSsid(){

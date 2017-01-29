@@ -33,6 +33,7 @@ public class Router extends AppCompatActivity {
 
 
     Button backMenu;
+    final Context context = this;
 
 
     @Override
@@ -40,8 +41,6 @@ public class Router extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config_page);
         backMenu = (Button)findViewById(R.id.back_menu);
-
-        final Context context = this;
 
         backMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

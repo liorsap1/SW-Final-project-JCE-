@@ -35,6 +35,14 @@
             android:layout_weight="1"
             android:id="@+id/layout2">
         <Button
+                android:text="press for Indices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/indices_button"
+        />
+        <Button
                 android:text="Press To Get Info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

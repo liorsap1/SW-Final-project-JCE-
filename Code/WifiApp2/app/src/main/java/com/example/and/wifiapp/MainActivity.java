@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     Button infoButton;
     Button configButton;
+    Button indicesButton;
 
     TextView Frequency;
     TextView LinkSpeed;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         infoButton = (Button) findViewById(R.id.info_button);
         configButton = (Button)findViewById(R.id.config_route);
+        indicesButton = (Button)findViewById(R.id.indices_button);
 
         Frequency = (TextView) findViewById(R.id.textView);
         LinkSpeed = (TextView) findViewById(R.id.textView2);
@@ -101,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
         configButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, Router.class);
+                startActivity(intent);
+            }
+        });
+        indicesButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Indices.class);
                 startActivity(intent);
             }
         });

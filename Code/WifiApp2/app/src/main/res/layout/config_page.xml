@@ -7,5 +7,7 @@
     <Button
             android:text="Back to menu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/back_menu"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/back_menu"/>
 </LinearLayout>

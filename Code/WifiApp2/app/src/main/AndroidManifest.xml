@@ -24,6 +24,10 @@
                 android:label="@string/app_name"
                 android:name=".Indices" >
         </activity>
+        <activity
+                android:label="@string/app_name"
+                android:name=".Details" >
+        </activity>
     </application>
 
 </manifest>

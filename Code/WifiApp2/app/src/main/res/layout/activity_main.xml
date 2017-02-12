@@ -39,16 +39,26 @@
                 android:text="Router Appliction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_weight="6"
+                android:textSize="40sp"
+                android:layout_weight="2.55"
                 android:textColor="#ed6226"
                 android:layout_gravity="center"
                 android:id="@+id/title"/>
+        <TextView
+                android:text="By Lior Sapir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"
+                android:layout_weight="2.55"
+                android:textColor="#ed6226"
+                android:layout_gravity="center"
+                android:id="@+id/t1"/>
         <Button
                 android:text="press for Indices"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:textColor="#f31a71"
                 android:layout_gravity="center"
                 android:id="@+id/indices_button"
@@ -58,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:textColor="#39f40a"
                 android:layout_gravity="center"
                 android:id="@+id/info_button"
@@ -67,9 +78,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
                 android:textColor="#1530ff"
                 android:layout_gravity="center"
                 android:id="@+id/config_route"/>
+
+        <TextView
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:layout_weight="3"
+                android:textColor="#ed6226"
+                android:layout_gravity="center"
+                android:id="@+id/t2"/>
 
 
     </LinearLayout>

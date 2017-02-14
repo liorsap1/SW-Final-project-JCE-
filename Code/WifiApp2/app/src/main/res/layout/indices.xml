@@ -14,6 +14,22 @@
             android:textColor="#f63625"
             android:layout_gravity="center"
             android:id="@+id/title"/>
+
+    <TextView
+            android:text="Router Indices:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:layout_weight="6"
+            android:textColor="#f63625"
+            android:layout_gravity="center"
+            android:id="@+id/range"/>
+    <Button
+            android:text="refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:id="@+id/refresh"/>
     <Button
             android:text="Back to menu"
             android:layout_width="match_parent"

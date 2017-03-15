@@ -26,9 +26,9 @@ public class Indices extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.indices);
-        backToMenu = (Button)findViewById(R.id.back_menu);
-        signal = (TextView)findViewById(R.id.range);
-        refresh = (Button)findViewById(R.id.refresh);
+        backToMenu = (Button) findViewById(R.id.back_menu);
+        signal = (TextView) findViewById(R.id.range);
+        refresh = (Button) findViewById(R.id.refresh);
 
         backToMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -36,26 +36,24 @@ public class Indices extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         getWifiStrength();
         refresh.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getWifiStrength();
             }
         });
-
     }
+
     private void getWifiStrength() {
         try {
             WifiManager wifiManager = (WifiManager) getApplicationContext()
                     .getSystemService(Context.WIFI_SERVICE);
             int rssi = wifiManager.getConnectionInfo().getRssi();
             int level = WifiManager.calculateSignalLevel(rssi, 100);
-            int percentage = (int) ((level/100.0)*100);
-            signal.setText("The signal is: "+percentage+"%");
-        }
-        catch (Exception e) {
-            signal.setText("The signal is: "+"problem occure");
+            int percentage = (int) (level);
+            signal.setText("The signal is: " + percentage + "%");
+        } catch (Exception e) {
+            signal.setText("The signal is: " + "problem occure");
         }
     }
 }

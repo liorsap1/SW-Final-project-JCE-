@@ -24,7 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    // <editor-fold defaultstate="collapsed" desc="---Lior project---">
+     // <editor-fold defaultstate="collapsed" desc="---Lior project---">
 
     private final String TAG = getClass().getSimpleName();
     Button infoButton;
@@ -46,36 +46,7 @@ public class MainActivity extends AppCompatActivity {
         infoButton = (Button) findViewById(R.id.info_button);
         configButton = (Button)findViewById(R.id.config_route);
         indicesButton = (Button)findViewById(R.id.indices_button);
-
-
-
-//        detailsList = (ListView) findViewById(R.id.detailsList);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_layout, R.id.listsForInfo, results);
-        // Assign adapter to ListView
-//        detailsList.setAdapter(adapter);
-
-        // ListView Item Click Listener
-/*        detailsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                // ListView Clicked item index
-                int itemPosition = position;
-
-                // ListView Clicked item value
-                String itemValue = (String) detailsList.getItemAtPosition(position);
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
-            }
-
-        });
-
-*/
+        
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, Details.class);

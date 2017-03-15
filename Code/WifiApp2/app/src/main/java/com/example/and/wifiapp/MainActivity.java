@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         infoButton = (Button) findViewById(R.id.info_button);
         configButton = (Button)findViewById(R.id.config_route);
         indicesButton = (Button)findViewById(R.id.indices_button);
-        
+
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, Details.class);

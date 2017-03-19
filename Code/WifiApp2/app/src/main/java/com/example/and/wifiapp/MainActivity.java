@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
         configButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(context, Router.class);
+                Intent intent = new Intent(context, ConnectionRouter.class);
                 startActivity(intent);
             }
         });

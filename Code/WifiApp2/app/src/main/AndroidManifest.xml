@@ -3,6 +3,7 @@
           package="com.example.and.wifiapp">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 
 
@@ -30,6 +31,10 @@
         <activity
                 android:label="@string/app_name"
                 android:name=".Details" >
+        </activity>
+        <activity
+                android:label="@string/app_name"
+                android:name=".ConnectionRouter" >
         </activity>
     </application>
 

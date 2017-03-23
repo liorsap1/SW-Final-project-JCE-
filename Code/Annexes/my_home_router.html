@@ -1,0 +1,424 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+
+	<title>Residential Gateway - ADB Italia</title>
+	<link rel="SHORTCUT ICON" href="/images/shortcut.ico">
+	<link rel="stylesheet" href="/css/calendar.css">
+	<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/theme.css" />
+	<link rel="stylesheet" href="/css/helpwidget.css" />
+	<link rel='stylesheet' href='/css/dboard.css'/>
+	<link rel='stylesheet' href='/css/custom.css'/>
+
+	<script src="/js/jquery.tools.min.js"></script>
+	<script src="/js/common.js"></script>
+	<script src="/js/calendar_eu.js"></script>
+	<script src='/js/system.js'></script>
+	<script src='/js/dboard.js'></script>
+
+</head>
+<body>
+<div id="header">
+	<img id="logo" src="/images/logo.png"/>
+<ul class="tabs">
+<li><a  href="/ui/dboard?level=1" class="tab tabselected" onclick="return link_onclick(this);">Basic<br/>Mode</a></li><li><a  href="/ui/dboard?level=2" class="tab" onclick="return link_onclick(this);">Advanced<br/>Mode</a></li></ul>
+
+</div>
+<div id="navigationBar">
+	<ul>
+	<li><img src="/images/Home16.png"/></li>
+<li><a onclick='return link_onclick(this);' href='/ui/dboard'>Home</a>
+	</ul>
+	<div id="logout">
+home <img src='/images/NormalUser16.png' title='Normal User - 10.100.102.3'/> 
+	<a href="/ui/logout" onclick="return link_onclick(this);">Logout</a>
+	</div> 
+
+</div>
+
+<div id="content">
+
+<div id="summaryArea">
+<div id="panelDeviceSummary" class="panel">
+<label class="panel">
+Device Summary
+</label>
+<img class="panel" src="/images/DeviceSummary16.png" />
+<hr class="panel" />
+<div class='infoField'>
+	<label>Firmware Version:</label>
+	<span class='text'>DV2220_CLC_5.2.0.0026 - main</span></div>
+<div class='infoField'>
+	<label>Platform Version:</label>
+	<span class='text'>5.0.0.0030</span></div>
+<div class='infoField'>
+	<label>Hardware Version:</label>
+	<span class='text'>bcm963381</span></div>
+<div class='infoField'>
+	<label>Serial Number:</label>
+	<span class='text'>64201T0025582</span></div>
+<div class='infoField'>
+	<label>MAC Address:</label>
+	<span class='text'>a0:4f:d4:43:56:31</span></div>
+<div class='infoField'>
+	<label>Uptime:</label>
+	<span class='text'>2h 13m 50s </span></div>
+<hr /><div class='infoField'>
+	<label class='title'>Internet Connection:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wan&if=2'>Up <img src='/images/Edit16.png'/></a></span></div>
+<div class='infoField'>
+	<label>Type:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wan&if=2'> PPP - PTM </a></span></div>
+<div class='infoField'>
+	<label>IP Address:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wan&if=2'>217.132.42.187</a></span></div>
+<div class='infoField'>
+	<label>Gateway:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wan&if=2'>212.143.10.180</a></span></div>
+<div class='infoField'>
+	<label>Name Server:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wan&if=2'>194.90.0.1, 212.143.0.1</a></span></div>
+<hr /><div class='infoField'>
+	<label class='title'>WWAN USB Modem:</label>
+	<span class='texterror'><a onclick='return link_onclick(this);' href='dboard?edit=wwan&if=1'>Not Connected <img src='/images/Edit16.png'/></a></span></div>
+<hr/>
+<div class='infoField'>
+	<label class='title'>DSL Line:</label>
+	<span class='text'>Up</span></div>
+<div class='infoField'>
+	<label>Type:</label>
+	<span class='text'>VDSL2</span></div>
+<div class='infoField'>
+	<label>Downstream Rate:</label>
+	<span class='text'>43993 Kbps</span></div>
+<div class='infoField'>
+	<label>Upstream Rate:</label>
+	<span class='text'>3455 Kbps</span></div>
+<div class='infoField'>
+	<label>Uptime:</label>
+	<span class='text'>2h 10m 44s </span></div>
+<hr/>
+<div class='infoField'>
+	<label class='title'>WiFi (2.4GHz):</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wifi&if=1'>Up <img src='/images/Edit16.png'/></a></span></div>
+<div class='infoField'>
+	<label>Name (SSID):</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wifi&if=1'>pitzkit</a></span></div>
+<div class='infoField'>
+	<label>Security:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=wifi&if=1'>WPA2 Personal, AES</a></span></div>
+<hr/>
+<div class='infoField'>
+	<label class='title'>LAN IP Address:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=lan&if=1'>10.100.102.1 <img src='/images/Edit16.png'/></a></span></div>
+<div class='infoField'>
+	<label>DHCP Server:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=lan&if=1'>Enabled</a></span></div>
+<div class='infoField'>
+	<label>Min Address:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=lan&if=1'>10.100.102.2</a></span></div>
+<div class='infoField'>
+	<label>Max Address:</label>
+	<span class='text'><a onclick='return link_onclick(this);' href='dboard?edit=lan&if=1'>10.100.102.254</a></span></div>
+<hr/>
+
+<div class="infoField">
+	<label class="title">Ethernet Ports:</label>
+	<div class="text">
+<span class='phyport linkDown'>1</span><span class='phyport linkDown'>2</span><span class='phyport linkDown'>3</span><span class='phyport linkDown'>4</span>
+	</div>
+</div>
+</div>
+
+
+</div>
+<div id="mainArea">
+<div id="panelServices" class="panel">
+<label class="panel">
+Services
+</label>
+<img class="panel" src="/images/Services16.png" />
+<hr class="panel" />
+
+<ul class="icons">
+<li>
+	<a id='settings' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Settings48.png);' href='/ui/dboard/settings' >Settings (+)</a>
+</li>
+
+<div class='previewPanel' id='settingsPreview' style='width:760px'>
+<label class='panel'>Settings</label>
+<a href='#' onclick='$("#settings").data("tooltip").hide(); return false;'><img class='panel' src='/images/Close16.png'/></a>
+<hr class='panel'>
+
+<ul class="icons">
+<li>
+	<a id='phyif' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/PHYIF48.png);' href='/ui/dboard/settings/phyif?backto=home' >Physical Interfaces</a>
+</li>
+<li>
+	<a id='nat' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/nat48.png);' href='/ui/dboard/settings/nat?backto=home' >NAT and<br/>Port Mapping</a>
+</li>
+<li>
+	<a id='vpn' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/WANVPN48.png);' href='/ui/dboard/settings/vpn?backto=home' >VPN </a>
+</li>
+<li>
+	<a id='ddns' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/DynDNS48.png);' href='/ui/dboard/settings/ddns?backto=home' >Dynamic DNS</a>
+</li>
+<li>
+	<a id='ipv6' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/IPv648.png);' href='/ui/dboard/settings/ipv6?backto=home' >IPv6</a>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+$("#settings").tooltip({
+	tip: '#settingsPreview',
+	position: 'bottom center',
+	offset: [0,-80], 
+	effect: 'slide', 
+	slideOffset: 20, 
+	delay: 200, 
+	opacity: 0.9, 
+	predelay: 400,
+	relative: true
+}).dynamic({ 
+	bottom: {
+		direction: 'down', 
+		bounce: true }
+	});
+$("#settingsPreview").css("overflow", "visible");
+
+</script>
+<li>
+	<a id='storage' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Storage48.png);' href='/ui/dboard/storage' >Storage (+)</a>
+</li>
+
+<div class='previewPanel' id='storagePreview' style='width:380px'>
+<label class='panel'>Storage</label>
+<a href='#' onclick='$("#storage").data("tooltip").hide(); return false;'><img class='panel' src='/images/Close16.png'/></a>
+<hr class='panel'>
+
+<ul class="icons">
+<li>
+	<a id='netserver' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/StorageNetServer48.png);' href='/ui/dboard/storage/netserver?backto=home' >Network File Sharing</a>
+</li>
+<li>
+	<a id='storageusers' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/UserStoragesettings48.png);' href='/ui/dboard/storage/storageusers?backto=home' >User Accounts</a>
+</li>
+<li>
+	<a id='ftpserver' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/StorageFTPServer48.png);' href='/ui/dboard/storage/ftpserver?backto=home' >FTP Server</a>
+</li>
+<li>
+	<a id='upnpav' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/UPnPAV48.png);' href='/ui/dboard/storage/upnpav?backto=home' >UPnP-AV Media Server</a>
+</li>
+<li>
+	<a id='webserver' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/WebServer48.png);' href='/ui/dboard/storage/webserver?backto=home' >Web Server</a>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+$("#storage").tooltip({
+	tip: '#storagePreview',
+	position: 'bottom center',
+	offset: [0,-80], 
+	effect: 'slide', 
+	slideOffset: 20, 
+	delay: 200, 
+	opacity: 0.9, 
+	predelay: 400,
+	relative: true
+}).dynamic({ 
+	bottom: {
+		direction: 'down', 
+		bounce: true }
+	});
+$("#storagePreview").css("overflow", "visible");
+
+</script>
+<li>
+	<a id='homenet' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/HomeNetwork48.png);' href='/ui/dboard/homenet' >Home<br/>Network</a>
+</li>
+<li>
+	<a id='system' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/System48.png);' href='/ui/dboard/system' >System (+)</a>
+</li>
+
+<div class='previewPanel' id='systemPreview' style='width:380px'>
+<label class='panel'>System</label>
+<a href='#' onclick='$("#system").data("tooltip").hide(); return false;'><img class='panel' src='/images/Close16.png'/></a>
+<hr class='panel'>
+
+<ul class="icons">
+<li>
+	<a id='reboot' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Reboot48.png);' href='/ui/dboard/system/reboot?backto=home' >Reboot</a>
+</li>
+<li>
+	<a id='factory' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Reset48.png);' href='/ui/dboard/system/factory?backto=home' >Factory<br/>Reset</a>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+$("#system").tooltip({
+	tip: '#systemPreview',
+	position: 'bottom center',
+	offset: [0,-80], 
+	effect: 'slide', 
+	slideOffset: 20, 
+	delay: 200, 
+	opacity: 0.9, 
+	predelay: 400,
+	relative: true
+}).dynamic({ 
+	bottom: {
+		direction: 'down', 
+		bounce: true }
+	});
+$("#systemPreview").css("overflow", "visible");
+
+</script>
+<li>
+	<a id='printers' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Printers48.png);' href='/ui/dboard/printers' >Printers (+)</a>
+</li>
+
+<div class='previewPanel' id='printersPreview' style='width:380px'>
+<label class='panel'>Printers</label>
+<a href='#' onclick='$("#printers").data("tooltip").hide(); return false;'><img class='panel' src='/images/Close16.png'/></a>
+<hr class='panel'>
+
+<ul class="icons">
+<li>
+	<a id='settings' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/PrintSettings48.png);' href='/ui/dboard/printers/settings?backto=home' >Settings</a>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+$("#printers").tooltip({
+	tip: '#printersPreview',
+	position: 'bottom center',
+	offset: [0,-80], 
+	effect: 'slide', 
+	slideOffset: 20, 
+	delay: 200, 
+	opacity: 0.9, 
+	predelay: 400,
+	relative: true
+}).dynamic({ 
+	bottom: {
+		direction: 'down', 
+		bounce: true }
+	});
+$("#printersPreview").css("overflow", "visible");
+
+</script>
+<li>
+	<a id='security' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Security48.png);' href='/ui/dboard/security' >Security (+)</a>
+</li>
+
+<div class='previewPanel' id='securityPreview' style='width:380px'>
+<label class='panel'>Security</label>
+<a href='#' onclick='$("#security").data("tooltip").hide(); return false;'><img class='panel' src='/images/Close16.png'/></a>
+<hr class='panel'>
+
+<ul class="icons">
+<li>
+	<a id='dmz' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/DMZ48.png);' href='/ui/dboard/security/dmz?backto=home' >DMZ</a>
+</li>
+<li>
+	<a id='parental' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/ParentalControl48.png);' href='/ui/dboard/security/parental?backto=home' >Parental<br/>Control</a>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+$("#security").tooltip({
+	tip: '#securityPreview',
+	position: 'bottom center',
+	offset: [0,-80], 
+	effect: 'slide', 
+	slideOffset: 20, 
+	delay: 200, 
+	opacity: 0.9, 
+	predelay: 400,
+	relative: true
+}).dynamic({ 
+	bottom: {
+		direction: 'down', 
+		bounce: true }
+	});
+$("#securityPreview").css("overflow", "visible");
+
+</script>
+<li>
+	<a id='modem' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Modem48.png);' href='/ui/dboard/modem' >Modem (+)</a>
+</li>
+
+<div class='previewPanel' id='modemPreview' style='width:380px'>
+<label class='panel'>Modem</label>
+<a href='#' onclick='$("#modem").data("tooltip").hide(); return false;'><img class='panel' src='/images/Close16.png'/></a>
+<hr class='panel'>
+
+<ul class="icons">
+<li>
+	<a id='simcard' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/SIMCard48.png);' href='/ui/dboard/modem/simcard?backto=home' >SIM Card</a>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+$("#modem").tooltip({
+	tip: '#modemPreview',
+	position: 'bottom center',
+	offset: [0,-80], 
+	effect: 'slide', 
+	slideOffset: 20, 
+	delay: 200, 
+	opacity: 0.9, 
+	predelay: 400,
+	relative: true
+}).dynamic({ 
+	bottom: {
+		direction: 'down', 
+		bounce: true }
+	});
+$("#modemPreview").css("overflow", "visible");
+
+</script>
+<li>
+	<a id='autosense' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/Autosense48.png);' href='/ui/dboard/autosense' >autosense</a>
+</li>
+<li>
+	<a id='statistics' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/atmlink48.png);' href='/ui/dboard/settings/netif/dsline/stats?if=1&backto=home' >DSL Statistics</a>
+</li>
+<li>
+	<a id='wifi1' class='icon' onclick='return link_onclick(this);' style='background-image: url(/images/wradio48.png);' href='/ui/dboard?edit=wifi&if=1' >WiFi (2.4GHz)</a>
+</li>
+
+</ul>
+</div>
+
+
+	<div id="footer">
+	Copyright &copy; 2010-2015 ADB Italia S.r.l.
+	</div>
+</div>
+</body>
+</html>

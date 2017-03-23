@@ -4,19 +4,24 @@ package com.example.and.wifiapp;
  * Created by and on 3/16/2017.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -26,14 +31,17 @@ public class ConnectionRouter extends AppCompatActivity {
 
     private final String USER_AGENT = "Mozilla/5.0";
     Button sendGet;
+    WebView myWebView;
+    WebView webView;
 
     ConnectionRouter http;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.router_http);
         try {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.router_http);
 
             http = new ConnectionRouter();
 
@@ -52,18 +60,33 @@ public class ConnectionRouter extends AppCompatActivity {
                     }
                 }
             });
+//            webView = new WebView(this);
+//            webView.setWebViewClient(new WebViewClient() {
+//                @Override
+//                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//                    return false;
+//                }
+//
+//                @Override
+//                public void onPageFinished(WebView view, String url) {
+//                    createWebPrintJob(view);
+//                    myWebView = null;
+//                }
+//            });
+
 
 
         } catch (Exception e) {
             System.out.println("something Wrong happened");
         }
+
     }
 
 
     // HTTP GET request
     private void sendGet() {
         try {
-            String url = "http://www.google.com/search?q=mkyong";
+            String url = "http://192.168.1.1";
             System.out.println("got to here1111!!!");
 
             URL obj = new URL(url);
@@ -145,6 +168,20 @@ public class ConnectionRouter extends AppCompatActivity {
         }
     }
 
+//    private void createWebPrintJob(WebView webView) {
+//
+//        PrintManager printManager = (PrintManager) this
+//                .getSystemService(Context.PRINT_SERVICE);
+//
+//        PrintDocumentAdapter printAdapter =
+//                webView.createPrintDocumentAdapter("MyDocument");
+//
+//        String jobName = getString(R.string.app_name) + " Print Test";
+//
+//        printManager.print(jobName, printAdapter,
+//                new PrintAttributes.Builder().build());
+//    }
+
 
     private class HttpRequest extends AsyncTask<String, String, String> {
 
@@ -188,13 +225,13 @@ public class ConnectionRouter extends AppCompatActivity {
                         //print result
                         System.out.println("got to here!!!");
                         System.out.println(response.toString());
+                        return null;
 
 
                     case "POSt":
                         http.sendPost();
                 }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
 
@@ -202,8 +239,13 @@ public class ConnectionRouter extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String last) {
+        protected void onPostExecute(String result) {
 
+            //writeHTML(result);
+//            webView.loadDataWithBaseURL(null, result,
+//                    "text/HTML", "UTF-8", null);
+//
+//            myWebView = webView;
         }
 
         @Override
@@ -213,6 +255,30 @@ public class ConnectionRouter extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... middle) {
         }
+
     }
 
+
+    public void writeHTML(String toWrite) {
+        String FILENAME = "C:\\Users\\and\\Desktop\\FinalProject\\index1.html";
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(FILENAME);
+            bw = new BufferedWriter(fw);
+            bw.write(toWrite);
+            System.out.println("Done");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null)
+                    bw.close();
+                if (fw != null)
+                    fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }

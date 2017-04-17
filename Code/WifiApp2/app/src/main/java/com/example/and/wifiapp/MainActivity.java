@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getSimpleName();
     Button infoButton;
-    Button configButton;
+    Button config_web_Button;
+    Button config_telnet_Button;
     Button indicesButton;
 
     ListView detailsList;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         final Context context = this;
 
         infoButton = (Button) findViewById(R.id.info_button);
-        configButton = (Button)findViewById(R.id.config_route);
+        config_web_Button = (Button)findViewById(R.id.web_route);
+        config_telnet_Button =(Button)findViewById(R.id.config_route);
         indicesButton = (Button)findViewById(R.id.indices_button);
 
         infoButton.setOnClickListener(new View.OnClickListener() {
@@ -53,9 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        configButton.setOnClickListener(new View.OnClickListener() {
+        config_web_Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ConnectionRouter.class);
+                startActivity(intent);
+            }
+        });
+        config_telnet_Button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Router.class);
                 startActivity(intent);
             }
         });

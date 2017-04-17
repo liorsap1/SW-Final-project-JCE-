@@ -74,12 +74,21 @@
                 android:id="@+id/info_button"
         />
         <Button
-                android:text="Configure Router"
+                android:text="Router webrowse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="18sp"
                 android:textColor="#1530ff"
+                android:layout_gravity="center"
+                android:id="@+id/web_route"/>
+        <Button
+                android:text="Configure Router"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textColor="#f89f07"
                 android:layout_gravity="center"
                 android:id="@+id/config_route"/>
 

@@ -20,6 +20,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -33,6 +34,7 @@ public class ConnectionRouter extends AppCompatActivity {
     Button sendGet;
     WebView myWebView;
     WebView webView;
+    TextView toshow;
 
     ConnectionRouter http;
 
@@ -46,7 +48,7 @@ public class ConnectionRouter extends AppCompatActivity {
             http = new ConnectionRouter();
 
             sendGet = (Button) findViewById(R.id.button);
-
+            toshow = (TextView) findViewById(R.id.textView10);
             sendGet.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
@@ -92,14 +94,11 @@ public class ConnectionRouter extends AppCompatActivity {
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            System.out.println("got to here2222!!!");
-
             // optional default is GET
             con.setRequestMethod("GET");
 
             //add request header
             con.setRequestProperty("User-Agent", USER_AGENT);
-            System.out.println("got to here3333!!!");
 
             int responseCode = con.getResponseCode();
             System.out.println("got to here444 and response code is: !!!" + responseCode);
@@ -191,24 +190,19 @@ public class ConnectionRouter extends AppCompatActivity {
             try {
                 switch (pressed) {
                     case "GET":
-//                        String url = "http://www.google.com/search?q=mkyong";
-                        String url = "http://192.168.1.1";
-                        System.out.println("got to here1111!!!");
+                        String url = "http://192.168.1.105:8000";
 
                         URL obj = new URL(url);
                         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                        System.out.println("got to here2222!!!");
 
                         // optional default is GET
                         con.setRequestMethod("GET");
 
                         //add request header
                         con.setRequestProperty("User-Agent", USER_AGENT);
-                        System.out.println("got to here3333!!!");
 
                         int responseCode = con.getResponseCode();
-                        System.out.println("got to here444 and response code is: !!!" + responseCode);
                         System.out.println("\nSending 'GET' request to URL : " + url);
                         System.out.println("Response Code : " + responseCode);
 
@@ -223,9 +217,9 @@ public class ConnectionRouter extends AppCompatActivity {
                         in.close();
 
                         //print result
-                        System.out.println("got to here!!!");
-                        System.out.println(response.toString());
-                        return null;
+
+
+                        return response.toString();
 
 
                     case "POSt":
@@ -246,6 +240,7 @@ public class ConnectionRouter extends AppCompatActivity {
 //                    "text/HTML", "UTF-8", null);
 //
 //            myWebView = webView;
+            toshow.setText(""+result);
         }
 
         @Override

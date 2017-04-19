@@ -121,9 +121,6 @@ public class Router extends AppCompatActivity {
         }
     }
 
-    /**
-     * This variable will point a function to invoke a client task
-     */
     private View.OnClickListener SSIDListener =
             new View.OnClickListener() {
                 @Override
@@ -199,6 +196,12 @@ public class Router extends AppCompatActivity {
         }
     }
 
+    /**
+     * Send message through socket to other server.
+     * @param hostThreadSocket     {Socket}
+     * @param msg                  {String}
+     * @return                     {String}
+     */
     public String sendMessage(Socket hostThreadSocket, String msg) {
         try {
             OutputStream outputStream;
@@ -212,6 +215,11 @@ public class Router extends AppCompatActivity {
         return msg;
     }
 
+    /**
+     * Get info from client who send to my server
+     * @param socket    {Socket}
+     * @return          {String}
+     */
     public String getMessage(Socket socket) {
         String message = "";
         message += "from " + socket.getInetAddress() + "And the port:" + socket.getPort() + "\n";

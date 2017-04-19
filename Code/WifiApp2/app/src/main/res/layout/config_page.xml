@@ -37,13 +37,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Connect..."/>
+                android:text="Connect..." style="@android:style/Widget.Button"/>
         <Button
                 android:id="@+id/change_ssid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="change ssid"/>
+                android:text="change ssid" style="@android:style/Widget.Button"/>
         <EditText
                 android:id="@+id/new_ssid"
                 android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Clear"/>
+                android:text="Clear" style="@android:style/Widget.Button"/>
 
 
         <TextView
@@ -96,7 +96,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:id="@+id/back_menu"/>
+                android:id="@+id/back_menu" style="@android:style/Widget.Button" android:elevation="0dp"
+                android:typeface="normal" android:fontFamily="sans-serif" android:textAllCaps="false"
+                android:textColor="#FF000050"/>
 
     </LinearLayout>
 </ScrollView>

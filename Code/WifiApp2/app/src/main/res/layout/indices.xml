@@ -10,36 +10,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="35sp"
-            android:layout_weight="6"
             android:textColor="#f63625"
             android:layout_gravity="center"
             android:id="@+id/title"/>
 
-    <TextView
-            android:text="Router Indices:"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="35sp"
-            android:layout_weight="6"
-            android:textColor="#f63625"
-            android:layout_gravity="center"
-            android:id="@+id/range"/>
     <Button
             android:text="refresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:id="@+id/refresh"/>
+
+    <TextView
+            android:text="Router Signal:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:textColor="#eae737"
+            android:layout_gravity="center"
+            android:id="@+id/range"/>
+
+    <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dip"
+            android:id="@+id/graph"
+            android:background="#00000000"/>
+
     <Button
             android:text="Back to menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:id="@+id/back_menu"/>
-    <TextView
-            android:text="signal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/signal"/>
+            android:id="@+id/back_menu" style="@android:style/Widget.Button"/>
+
 </LinearLayout>

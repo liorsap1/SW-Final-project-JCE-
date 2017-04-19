@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 /**
  * Created by and on 1/28/2017.
@@ -20,6 +23,11 @@ public class Indices extends AppCompatActivity {
     Button backToMenu;
     Button refresh;
     TextView signal;
+
+
+    GraphView graph;
+    LineGraphSeries<DataPoint> series;
+
     final Context context = this;
 
     @Override

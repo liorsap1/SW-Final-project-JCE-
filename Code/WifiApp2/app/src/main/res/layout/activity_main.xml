@@ -5,7 +5,7 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/bg_main"
+        android:background="@mipmap/normal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
@@ -13,21 +13,6 @@
         tools:context="com.example.and.wifiapp.MainActivity">
 
 
-    <!--<LinearLayout-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:id="@+id/layout1">-->
-        <!--<ListView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/detailsList">-->
-
-
-        <!--</ListView>-->
-
-    <!--</LinearLayout>-->
 
     <LinearLayout
             android:orientation="vertical"
@@ -58,39 +43,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="30sp"
                 android:textColor="#f31a71"
                 android:layout_gravity="center"
                 android:id="@+id/indices_button"
-        />
+                style="@android:style/Widget.Button"/>
         <Button
                 android:text="Press To Get Info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="30sp"
                 android:textColor="#39f40a"
                 android:layout_gravity="center"
                 android:id="@+id/info_button"
-        />
+                style="@android:style/Widget.Button"/>
         <Button
                 android:text="Router webrowse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="30sp"
                 android:textColor="#1530ff"
                 android:layout_gravity="center"
-                android:id="@+id/web_route"/>
+                android:id="@+id/web_route"
+                style="@android:style/Widget.Button"/>
         <Button
                 android:text="Configure Router"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
+                android:textSize="30sp"
                 android:textColor="#f89f07"
                 android:layout_gravity="center"
-                android:id="@+id/config_route"/>
+                android:id="@+id/config_route" style="@android:style/Widget.Button"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <TextView
                 android:text=""

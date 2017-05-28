@@ -50,6 +50,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="New SSID name"/>
+        <Button
+                android:id="@+id/change_wifi_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="change wifi password"
+                style="@android:style/Widget.Button"/>
+        <EditText
+                android:id="@+id/new_wifi_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="New wifi password"/>
 
 
         <Button

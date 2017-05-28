@@ -53,8 +53,8 @@ public class Router extends AppCompatActivity {
     //CLIENT
 
     TextView textResponse;
-    EditText Address, Port, ssid_name;
-    Button buttonConnect, buttonClear, change_ssid;
+    EditText Address, Port, ssid_name,new_pass;
+    Button buttonConnect, buttonClear, change_ssid,change_pass;
     PrintStream printStream;
 
 
@@ -74,16 +74,22 @@ public class Router extends AppCompatActivity {
         //-----------CLIENT-----------
         Address = (EditText) findViewById(R.id.address);
         Port = (EditText) findViewById(R.id.port);
+
         ssid_name = (EditText) findViewById(R.id.new_ssid);
-        buttonConnect = (Button) findViewById(R.id.connect);
         change_ssid = (Button) findViewById(R.id.change_ssid);
+
+        buttonConnect = (Button) findViewById(R.id.connect);
+
+        change_pass = (Button) findViewById(R.id.change_wifi_pass);
+        new_pass = (EditText) findViewById(R.id.new_wifi_pass);
+
         buttonClear = (Button) findViewById(R.id.clear);
         textResponse = (TextView) findViewById(R.id.response);
-
 
         //-----------CLIENT WORKING-----------
         buttonConnect.setOnClickListener(ConnectListener);
         change_ssid.setOnClickListener(SSIDListener);
+        change_pass.setOnClickListener(passListener);
 
         //-----------SERVER WORKING-----------
         infoip.setText(getIpAddress());
@@ -105,6 +111,7 @@ public class Router extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
 
@@ -130,6 +137,17 @@ public class Router extends AppCompatActivity {
                             Integer.parseInt(Port.getText().toString()));
                             SSID = ssid_name.getText().toString();
                     myClientTask.execute("ssid");
+                }
+            };
+    private View.OnClickListener passListener =
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Client myClientTask = new Client(
+                            Address.getText().toString(),
+                            Integer.parseInt(Port.getText().toString()));
+                    password = new_pass.getText().toString();
+                    myClientTask.execute("password");
                 }
             };
     private View.OnClickListener ConnectListener =
@@ -265,25 +283,26 @@ public class Router extends AppCompatActivity {
             try {
                 socket = new Socket(dstAddress, dstPort);
                 try {
+                    Thread.sleep(1000);
+                    sendMessage(socket, "root\r");
+                    Thread.sleep(1000);
+                    sendMessage(socket, "123456\r");
+                    Thread.sleep(1000);
                     switch (command[0]) {
-                        case "connect":
-                            Thread.sleep(1000);
-                            sendMessage(socket, "root\r");
-                            Thread.sleep(1000);
-                            sendMessage(socket, "123456\r");
                         case "ssid":
-                            Thread.sleep(1000);
-                            sendMessage(socket, "root\r");
-                            Thread.sleep(1000);
-                            sendMessage(socket, "123456\r");
-                            Thread.sleep(2000);
                             if(SSID.length() != 0){
                                 sendMessage(socket, "nvram set ath0_ssid="+SSID+"\r");
-                                Thread.sleep(3000);
-                                sendMessage(socket, "nvram commit\r");
                             }
+                        case "password":
+                            if(password.length() != 0){
+                                sendMessage(socket, "nvram set ath0_wpa_psk="+password+"\r");
+                            }
+                        default:
+                            Thread.sleep(1000);
                     }
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
+                    sendMessage(socket, "nvram commit\r");
+                    Thread.sleep(2000);
                     sendMessage(socket, "exit\r");
                 } catch (InterruptedException e) {
                     Thread.interrupted();

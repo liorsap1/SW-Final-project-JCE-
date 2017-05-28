@@ -20,70 +20,81 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/layout2">
-        <TextView
-                android:text="Router Appliction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.55"
+        <ImageView
+                android:id="@+id/imageView1"
                 android:layout_gravity="center"
-                android:id="@+id/title" android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionMode.Title"
-                android:textAllCaps="true" android:textStyle="normal|bold|italic" android:textSize="30sp"/>
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/logoapp" />
+
         <TextView
                 android:text="By Lior Sapir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.55"
-                android:textColor="#ae260d"
+                android:textColor="#9ACD32"
                 android:layout_gravity="center"
                 android:id="@+id/t1" android:fontFamily="sans-serif" android:textSize="30sp"/>
         <Button
-                android:text="press for Indices"
-                android:layout_width="wrap_content"
+                android:text="Router Indices"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="30sp"
-                android:textColor="#f31a71"
+                android:textColor="#FF0000"
                 android:layout_gravity="center"
                 android:id="@+id/indices_button"
-                style="@android:style/Widget.Button"/>
+                style="@style/Widget.AppCompat.Button"
+                android:textAllCaps="false"
+                android:fontFamily="serif"/>
         <Button
-                android:text="Press To Get Info"
-                android:layout_width="wrap_content"
+                android:text="Router Configuration"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="30sp"
-                android:textColor="#39f40a"
+                android:textColor="#FF0000"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
-                android:id="@+id/info_button"
-                style="@android:style/Widget.Button"/>
+                android:id="@+id/config_route"
+                style="@style/Widget.AppCompat.Button"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:fontFamily="serif"/>
+
         <Button
-                android:text="Router webrowse"
-                android:layout_width="wrap_content"
+                android:text="Router Webrowse"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="5dp"
                 android:textSize="30sp"
-                android:textColor="#1530ff"
+                android:textColor="#FF0000"
                 android:layout_gravity="center"
                 android:id="@+id/web_route"
-                style="@android:style/Widget.Button"/>
+                style="@style/Widget.AppCompat.Button"
+                android:fontFamily="serif" android:textAllCaps="false"/>
         <Button
-                android:text="Configure Router"
-                android:layout_width="wrap_content"
+                android:text="Router Info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="30sp"
-                android:textColor="#f89f07"
+                android:layout_marginTop="5dp"
+                android:textColor="#FF0000"
                 android:layout_gravity="center"
-                android:id="@+id/config_route" style="@android:style/Widget.Button"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:id="@+id/info_button"
+                style="@style/Widget.AppCompat.Button"
+                android:fontFamily="serif" android:textAllCaps="false"/>
 
         <TextView
-                android:text=""
+                android:text="Final Project JCE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="35sp"
                 android:layout_weight="3"
-                android:textColor="#ed6226"
+                android:textColor="#cc0c0c"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:id="@+id/t2"/>
 

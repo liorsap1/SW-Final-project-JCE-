@@ -63,18 +63,6 @@
                 android:fontFamily="serif"/>
 
         <Button
-                android:text="Router Webrowse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="5dp"
-                android:textSize="30sp"
-                android:textColor="#FF0000"
-                android:layout_gravity="center"
-                android:id="@+id/web_route"
-                style="@style/Widget.AppCompat.Button"
-                android:fontFamily="serif" android:textAllCaps="false"/>
-        <Button
                 android:text="Router Info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

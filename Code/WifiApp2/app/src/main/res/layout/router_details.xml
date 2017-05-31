@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="35sp"
-            android:layout_weight="6"
+            android:layout_weight="0.78"
             android:textColor="#f63625"
             android:layout_gravity="center"
             android:id="@+id/title"/>
@@ -84,13 +84,5 @@
             android:layout_gravity="center"
             android:id="@+id/textView9"/>
 
-
-
-    <Button
-            android:text="Back to menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:id="@+id/back_menu"/>
 
 </LinearLayout>

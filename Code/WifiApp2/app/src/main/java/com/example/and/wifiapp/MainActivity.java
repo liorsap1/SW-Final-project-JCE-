@@ -1,10 +1,7 @@
 package com.example.and.wifiapp;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
@@ -24,18 +21,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-     // <editor-fold defaultstate="collapsed" desc="---Lior project---">
+     // <editor-fold defaultstate="collapsed" desc="---Project---">
 
     private final String TAG = getClass().getSimpleName();
-    Button infoButton;
-    Button config_web_Button;
-    Button config_telnet_Button;
-    Button indicesButton;
-
-    ListView detailsList;
-
-
-
+    private Button infoButton;
+    private Button config_web_Button;
+    private Button config_telnet_Button;
+    private Button indicesButton;
+    //private SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         final Context context = this;
 
         infoButton = (Button) findViewById(R.id.info_button);
-        config_web_Button = (Button)findViewById(R.id.web_route);
         config_telnet_Button =(Button)findViewById(R.id.config_route);
         indicesButton = (Button)findViewById(R.id.indices_button);
 
@@ -53,12 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, Details.class);
                 startActivity(intent);
-            }
-        });
-        config_web_Button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ConnectionRouter.class);
-                startActivity(intent);
+
             }
         });
         config_telnet_Button.setOnClickListener(new View.OnClickListener() {
@@ -74,25 +61,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        stateButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                pressed = "stateButton";
-//                System.out.println("here is the problem2");
-//                new LongOperation().execute(pressed);
-//            }
-//        });
     }
 
-    public void fillTextsInfo(String results[]) {
-
-    }
-
-
-
-//    public void pressedStatus(){
-//        stateButton.setText(wifi.getWifiState());
-//    }
 // </editor-fold>
 
 }

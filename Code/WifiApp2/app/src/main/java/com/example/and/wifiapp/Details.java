@@ -14,13 +14,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
 
 public class Details extends AppCompatActivity {
 
-    Button backToMenu;
     Button infoButton;
     private final String TAG = getClass().getSimpleName();
-
     TextView Frequency;
     TextView LinkSpeed;
     TextView BSSID;
@@ -29,9 +32,6 @@ public class Details extends AppCompatActivity {
     TextView NetworkId;
     TextView MacAddress;
     TextView SSID;
-    final Context context = this;
-
-
 
     WifiManager wifi;
     String pressed;
@@ -41,11 +41,8 @@ public class Details extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.router_details);
-        backToMenu = (Button)findViewById(R.id.back_menu);
+
         infoButton = (Button) findViewById(R.id.info_button);
-
-
-
         Frequency = (TextView) findViewById(R.id.textView);
         LinkSpeed = (TextView) findViewById(R.id.textView2);
         BSSID = (TextView) findViewById(R.id.textView3);
@@ -65,14 +62,26 @@ public class Details extends AppCompatActivity {
             }
         });
 
-
-        backToMenu.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
+    }
+    private String getIpAddress() {
+        String Deviceip = "";
+        try {
+            Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (enumNetworkInterfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = enumNetworkInterfaces.nextElement();
+                Enumeration<InetAddress> enumInetAddress = networkInterface.getInetAddresses();
+                while (enumInetAddress.hasMoreElements()) {
+                    InetAddress inetAddress = enumInetAddress.nextElement();
+                    if (inetAddress.isSiteLocalAddress()) {
+                        Deviceip += inetAddress.getHostAddress() + "\n";
+                    }
+                }
             }
-        });
-
+        } catch (SocketException e) {
+            e.printStackTrace();
+            Deviceip += "Can't get ip! " + e.toString() + "\n";
+        }
+        return Deviceip;
     }
 
 
@@ -94,10 +103,11 @@ public class Details extends AppCompatActivity {
                         results[1] = "Link Speed: " + wifi.getConnectionInfo().getLinkSpeed();
                         results[2] = "BSSID: " + wifi.getConnectionInfo().getBSSID();
                         results[3] = "Contents: " + wifi.getConnectionInfo().describeContents();
-                        results[4] = "Ip Address: " + wifi.getConnectionInfo().getIpAddress();
+                        results[4] = "Ip Address: " + getIpAddress();
                         results[5] = "Network Id: " + wifi.getConnectionInfo().getNetworkId();
                         results[6] = "Mac Address: " + wifi.getConnectionInfo().getMacAddress();
                         results[7] = "SSID: " + wifi.getConnectionInfo().getSSID();
+                        return pressed;
                     case "stateButton":
                     default:
                         return pressed;
@@ -121,7 +131,6 @@ public class Details extends AppCompatActivity {
                         NetworkId.setText(results[5]);
                         MacAddress.setText(results[6]);
                         SSID.setText(results[7]);
-
 
                     case "stateButton":
 

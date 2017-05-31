@@ -38,20 +38,15 @@ public class Router extends AppCompatActivity {
     boolean WiFi_Segregation = false;
     boolean WPS_Enabled = false;
 
-
-    Button backMenu;
     final Context context = this;
 
-
     //SERVER
-
     TextView info, infoip, msg;
     String message = "";
     ServerSocket serverSocket;
 
 
     //CLIENT
-
     TextView textResponse;
     EditText Address, Port, ssid_name,new_pass;
     Button buttonConnect, buttonClear, change_ssid,change_pass;
@@ -62,14 +57,11 @@ public class Router extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config_page);
-        backMenu = (Button) findViewById(R.id.back_menu);
-
 
         //-----------SERVER-----------
         info = (TextView) findViewById(R.id.info);
         infoip = (TextView) findViewById(R.id.infoip);
         msg = (TextView) findViewById(R.id.msg);
-
 
         //-----------CLIENT-----------
         Address = (EditText) findViewById(R.id.address);
@@ -105,13 +97,6 @@ public class Router extends AppCompatActivity {
             }
         });
 
-        backMenu.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
 
@@ -121,7 +106,8 @@ public class Router extends AppCompatActivity {
         if (serverSocket != null) {
             try {
                 serverSocket.close();
-                printStream.close();
+                if(printStream != null)
+                    printStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -265,6 +251,8 @@ public class Router extends AppCompatActivity {
         }
         return Deviceip;
     }
+
+
 
 
     public class Client extends AsyncTask<String, Void, Void> {

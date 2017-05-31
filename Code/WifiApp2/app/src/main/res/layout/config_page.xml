@@ -104,14 +104,6 @@
                 android:textSize="15sp"
                 android:hint="Server Response"
                 android:textAlignment="textStart"/>
-        <Button
-                android:text="Back to menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:id="@+id/back_menu" style="@android:style/Widget.Button" android:elevation="0dp"
-                android:typeface="normal" android:fontFamily="sans-serif" android:textAllCaps="false"
-                android:textColor="#FF000050"/>
 
     </LinearLayout>
 </ScrollView>

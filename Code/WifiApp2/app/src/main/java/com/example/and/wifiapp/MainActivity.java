@@ -24,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
      // <editor-fold defaultstate="collapsed" desc="---Project---">
 
     private final String TAG = getClass().getSimpleName();
-    private Button infoButton;
-    private Button config_web_Button;
-    private Button config_telnet_Button;
-    private Button indicesButton;
+    private ImageView infoButton;
+    private ImageView config_telnet_Button;
+    private ImageView indicesButton;
     //private SharedPreferences
 
     @Override
@@ -37,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         final Context context = this;
 
-        infoButton = (Button) findViewById(R.id.info_button);
-        config_telnet_Button =(Button)findViewById(R.id.config_route);
-        indicesButton = (Button)findViewById(R.id.indices_button);
+        infoButton = (ImageView) findViewById(R.id.info_button);
+        config_telnet_Button =(ImageView)findViewById(R.id.config_route);
+        indicesButton = (ImageView)findViewById(R.id.indices_button);
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

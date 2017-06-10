@@ -1,10 +1,12 @@
 package com.example.and.wifiapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +24,27 @@ import java.util.Enumeration;
 public class Router extends AppCompatActivity {
 
     String SSID = "";
-    String Security_Mode_encrypt = "";
     String password = "";
+
+    class Telnet {
+        String user_Telnet = "";
+        String pass_Telnet = "";
+        String command = "";
+        public Telnet(String user_Telnet, String pass_Telnet, String command) {
+            this.command = command;
+            this.pass_Telnet = pass_Telnet;
+            this.user_Telnet = user_Telnet;
+        }
+        public String getUser_Telnet() {return user_Telnet;}
+        public void setUser_Telnet(String user_Telnet) {this.user_Telnet = user_Telnet;}
+        public String getCommand() {return command;}
+        public void setCommand(String command) {this.command = command;}
+        public String getPass_Telnet() {return pass_Telnet;}
+        public void setPass_Telnet(String pass_Telnet) {this.pass_Telnet = pass_Telnet;}
+    }
+
+
+    String Security_Mode_encrypt = "";
     String ipAddress = "...";
     String Encryption_Mode = "";
 
@@ -48,8 +69,8 @@ public class Router extends AppCompatActivity {
 
     //CLIENT
     TextView textResponse;
-    EditText Address, Port, ssid_name,new_pass;
-    Button buttonConnect, buttonClear, change_ssid,change_pass;
+    EditText Address, Port, ssid_name, new_pass;
+    Button buttonConnect, buttonClear, change_ssid, change_pass, btn_save;
     PrintStream printStream;
 
 
@@ -62,43 +83,90 @@ public class Router extends AppCompatActivity {
         info = (TextView) findViewById(R.id.info);
         infoip = (TextView) findViewById(R.id.infoip);
         msg = (TextView) findViewById(R.id.msg);
-
-        //-----------CLIENT-----------
         Address = (EditText) findViewById(R.id.address);
         Port = (EditText) findViewById(R.id.port);
 
+        //-----------CLIENT-----------
+
         ssid_name = (EditText) findViewById(R.id.new_ssid);
-        change_ssid = (Button) findViewById(R.id.change_ssid);
-
-        buttonConnect = (Button) findViewById(R.id.connect);
-
-        change_pass = (Button) findViewById(R.id.change_wifi_pass);
         new_pass = (EditText) findViewById(R.id.new_wifi_pass);
-
         buttonClear = (Button) findViewById(R.id.clear);
         textResponse = (TextView) findViewById(R.id.response);
+        btn_save = (Button) findViewById(R.id.save); //this is the new button
 
-        //-----------CLIENT WORKING-----------
-        buttonConnect.setOnClickListener(ConnectListener);
-        change_ssid.setOnClickListener(SSIDListener);
-        change_pass.setOnClickListener(passListener);
 
         //-----------SERVER WORKING-----------
         infoip.setText(getIpAddress());
         Thread socketServerThread = new Thread(new SocketServerThread());
         socketServerThread.start();
 
-        buttonClear.setOnClickListener(new View.OnClickListener() {
 
+        //-----------  BUTTON SAVE LISTENER  -----------
+
+        buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 textResponse.setText("");
+                ssid_name.setText("");
+                new_pass.setText("");
                 msg.setText("");
+            }
+        });
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!new_pass.getText().equals("")){
+                    SSID = ssid_name.getText().toString();
+                    Change("ssid");}
+                if(!new_pass.getText().equals("")){
+                    password = new_pass.getText().toString();
+                    Change("password");}
             }
         });
 
     }
 
+    private void Change(String chanage){
+        String Address = getText().toString();
+        try{
+            if(Address.length() <= 0){
+            }
+            int portum = Integer.parseInt(Port.getText().toString())
+            Client myClientTask = new Client(Address, portum);
+            myClientTask.execute(chanage);
+        }
+        catch(NumberFormatException  e){
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle("Alert");
+            alertDialog.setMessage("Dana pussy is so not wet");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+    }
+
+    public boolean configure(String username, String pass, String command, Socket soc) {
+        try {
+            Thread.sleep(1000);
+            sendMessage(soc, username + "\r");
+            Thread.sleep(1000);
+            sendMessage(soc, pass + "\r");
+            Thread.sleep(1000);
+            sendMessage(soc, command + "\r");
+            Thread.sleep(1000);
+            sendMessage(soc, "nvram commit\r");
+            Thread.sleep(1000);
+            sendMessage(soc, "exit\r");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     @Override
     protected void onDestroy() {
@@ -106,7 +174,7 @@ public class Router extends AppCompatActivity {
         if (serverSocket != null) {
             try {
                 serverSocket.close();
-                if(printStream != null)
+                if (printStream != null)
                     printStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -114,38 +182,6 @@ public class Router extends AppCompatActivity {
         }
     }
 
-    private View.OnClickListener SSIDListener =
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Client myClientTask = new Client(
-                            Address.getText().toString(),
-                            Integer.parseInt(Port.getText().toString()));
-                            SSID = ssid_name.getText().toString();
-                    myClientTask.execute("ssid");
-                }
-            };
-    private View.OnClickListener passListener =
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Client myClientTask = new Client(
-                            Address.getText().toString(),
-                            Integer.parseInt(Port.getText().toString()));
-                    password = new_pass.getText().toString();
-                    myClientTask.execute("password");
-                }
-            };
-    private View.OnClickListener ConnectListener =
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Client myClientTask = new Client(
-                            Address.getText().toString(),
-                            Integer.parseInt(Port.getText().toString()));
-                    myClientTask.execute("connect");
-                }
-            };
 
     private class SocketServerThread extends Thread {
         static final int PORT = 1300;
@@ -202,9 +238,10 @@ public class Router extends AppCompatActivity {
 
     /**
      * Send message through socket to other server.
-     * @param hostThreadSocket     {Socket}
-     * @param msg                  {String}
-     * @return                     {String}
+     *
+     * @param hostThreadSocket {Socket}
+     * @param msg              {String}
+     * @return {String}
      */
     public String sendMessage(Socket hostThreadSocket, String msg) {
         try {
@@ -221,15 +258,15 @@ public class Router extends AppCompatActivity {
 
     /**
      * Get info from client who send to my server
-     * @param socket    {Socket}
-     * @return          {String}
+     *
+     * @param socket {Socket}
+     * @return {String}
      */
     public String getMessage(Socket socket) {
         String message = "";
         message += "from " + socket.getInetAddress() + "And the port:" + socket.getPort() + "\n";
         return message;
     }
-
 
     private String getIpAddress() {
         String Deviceip = "";
@@ -241,18 +278,13 @@ public class Router extends AppCompatActivity {
                 while (enumInetAddress.hasMoreElements()) {
                     InetAddress inetAddress = enumInetAddress.nextElement();
                     if (inetAddress.isSiteLocalAddress()) {
-                        Deviceip += "Device ip is: " + inetAddress.getHostAddress() + "\n";
-                    }
-                }
-            }
+                        Deviceip += "Device ip is: " + inetAddress.getHostAddress() + "\n";}}}
         } catch (SocketException e) {
             e.printStackTrace();
             Deviceip += "Can't get ip! " + e.toString() + "\n";
         }
         return Deviceip;
     }
-
-
 
 
     public class Client extends AsyncTask<String, Void, Void> {
@@ -270,32 +302,19 @@ public class Router extends AppCompatActivity {
             Socket socket = null;
             try {
                 socket = new Socket(dstAddress, dstPort);
-                try {
-                    Thread.sleep(1000);
-                    sendMessage(socket, "root\r");
-                    Thread.sleep(1000);
-                    sendMessage(socket, "123456\r");
-                    Thread.sleep(1000);
-                    switch (command[0]) {
-                        case "ssid":
-                            if(SSID.length() != 0){
-                                sendMessage(socket, "nvram set ath0_ssid="+SSID+"\r");
-                            }
-                        case "password":
-                            if(password.length() != 0){
-                                sendMessage(socket, "nvram set ath0_wpa_psk="+password+"\r");
-                            }
-                        default:
-                            Thread.sleep(1000);
-                    }
-                    Thread.sleep(2000);
-                    sendMessage(socket, "nvram commit\r");
-                    Thread.sleep(2000);
-                    sendMessage(socket, "exit\r");
-                } catch (InterruptedException e) {
-                    Thread.interrupted();
+                switch (command[0]) {
+                    case "ssid":
+                        if (SSID.length() != 0) {
+                            configure("root", "admin", "nvram set ath0_ssid=" + SSID, socket);
+                            //wl0_channel = channel
+                            //wl0_net_mode = mixed
+                        }
+                    case "password":
+                        if (password.length() != 0) {
+                            configure("root", "admin", "nvram set ath0_wpa_psk=" + password, socket);
+                            configure("root", "admin", "nvram set wl0_wpa_psk=" + password, socket);
+                        }
                 }
-
                 ByteArrayOutputStream OutputStream = new ByteArrayOutputStream(
                         1024);
                 byte[] buffer = new byte[1024];
@@ -330,20 +349,6 @@ public class Router extends AppCompatActivity {
         }
     }
 
-    public String getSsid() {
-        String s = "this is ssid function";
-        return s;
-    }
-
-    public boolean configureSsid(String s) {
-
-        return true;
-    }
-
-    public boolean configurePasswor(String pass) {
-        String s = "this is ssid function";
-        return true;
-    }
 
 
 }

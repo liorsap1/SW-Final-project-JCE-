@@ -5,89 +5,81 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/normal"
+        android:background="@drawable/magen"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
         tools:context="com.example.and.wifiapp.MainActivity">
 
-
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/layout2">
         <ImageView
                 android:id="@+id/imageView1"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:paddingBottom="50dp"
                 android:src="@mipmap/logoapp" />
+
+
+        <ImageView
+                android:text="Router Indices"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:adjustViewBounds="true"
+                android:src="@drawable/range"
+                android:layout_gravity="center"
+                android:id="@+id/indices_button"
+                android:cropToPadding="true"
+                android:visibility="visible"/>
+        <ImageView
+                android:text="Router Configuration"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:src="@drawable/config_icon"
+                android:adjustViewBounds="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/config_route"/>
+
+        <ImageView
+                android:text="Router Info"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:src="@drawable/info_icon"
+                android:adjustViewBounds="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/info_button"/>
+
+        <TextView
+                android:text="Final Project JCE"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textSize="30sp"
+                android:layout_weight="1.30"
+                android:textColor="#cc0c0c"
+                android:layout_marginTop="60dp"
+                android:layout_gravity="center"
+                android:id="@+id/t2"/>
 
         <TextView
                 android:text="By Lior Sapir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2.55"
+                android:layout_weight="1"
                 android:textColor="#9ACD32"
                 android:layout_gravity="center"
-                android:id="@+id/t1" android:fontFamily="sans-serif" android:textSize="30sp"/>
-        <Button
-                android:text="Router Indices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="30sp"
-                android:textColor="#FF0000"
-                android:layout_gravity="center"
-                android:id="@+id/indices_button"
-                style="@style/Widget.AppCompat.Button"
-                android:textAllCaps="false"
-                android:fontFamily="serif"/>
-        <Button
-                android:text="Router Configuration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="30sp"
-                android:textColor="#FF0000"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"
-                android:id="@+id/config_route"
-                style="@style/Widget.AppCompat.Button"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:fontFamily="serif"/>
+                android:layout_marginTop="10dp"
+                android:id="@+id/t1"
+                android:fontFamily="sans-serif"
+                android:textSize="30sp"/>
 
-        <Button
-                android:text="Router Info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="30sp"
-                android:layout_marginTop="5dp"
-                android:textColor="#FF0000"
-                android:layout_gravity="center"
-                android:id="@+id/info_button"
-                style="@style/Widget.AppCompat.Button"
-                android:fontFamily="serif" android:textAllCaps="false"/>
-
-        <TextView
-                android:text="Final Project JCE"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="35sp"
-                android:layout_weight="3"
-                android:textColor="#cc0c0c"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"
-                android:id="@+id/t2"/>
-
-
-    </LinearLayout>
 
 
 </LinearLayout>

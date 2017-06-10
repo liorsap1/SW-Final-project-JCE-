@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * Created by and on 12/30/2016.
  */
@@ -25,22 +28,44 @@ public class Router extends AppCompatActivity {
 
     String SSID = "";
     String password = "";
+    String channel = "";
+    String wifiMode = "";
+
 
     class Telnet {
         String user_Telnet = "";
         String pass_Telnet = "";
         String command = "";
+
         public Telnet(String user_Telnet, String pass_Telnet, String command) {
             this.command = command;
             this.pass_Telnet = pass_Telnet;
             this.user_Telnet = user_Telnet;
         }
-        public String getUser_Telnet() {return user_Telnet;}
-        public void setUser_Telnet(String user_Telnet) {this.user_Telnet = user_Telnet;}
-        public String getCommand() {return command;}
-        public void setCommand(String command) {this.command = command;}
-        public String getPass_Telnet() {return pass_Telnet;}
-        public void setPass_Telnet(String pass_Telnet) {this.pass_Telnet = pass_Telnet;}
+
+        public String getUser_Telnet() {
+            return user_Telnet;
+        }
+
+        public void setUser_Telnet(String user_Telnet) {
+            this.user_Telnet = user_Telnet;
+        }
+
+        public String getCommand() {
+            return command;
+        }
+
+        public void setCommand(String command) {
+            this.command = command;
+        }
+
+        public String getPass_Telnet() {
+            return pass_Telnet;
+        }
+
+        public void setPass_Telnet(String pass_Telnet) {
+            this.pass_Telnet = pass_Telnet;
+        }
     }
 
 
@@ -69,8 +94,9 @@ public class Router extends AppCompatActivity {
 
     //CLIENT
     TextView textResponse;
+    EditText telnet_username, telnet_pass;
     EditText Address, Port, ssid_name, new_pass;
-    Button buttonConnect, buttonClear, change_ssid, change_pass, btn_save;
+    Button buttonClear, btn_save;
     PrintStream printStream;
 
 
@@ -88,6 +114,8 @@ public class Router extends AppCompatActivity {
 
         //-----------CLIENT-----------
 
+        telnet_username = (EditText) findViewById(R.id.username);
+        telnet_pass = (EditText) findViewById(R.id.password);
         ssid_name = (EditText) findViewById(R.id.new_ssid);
         new_pass = (EditText) findViewById(R.id.new_wifi_pass);
         buttonClear = (Button) findViewById(R.id.clear);
@@ -99,7 +127,6 @@ public class Router extends AppCompatActivity {
         infoip.setText(getIpAddress());
         Thread socketServerThread = new Thread(new SocketServerThread());
         socketServerThread.start();
-
 
         //-----------  BUTTON SAVE LISTENER  -----------
 
@@ -116,30 +143,36 @@ public class Router extends AppCompatActivity {
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!new_pass.getText().equals("")){
+                if (!new_pass.getText().equals("")) {
                     SSID = ssid_name.getText().toString();
-                    Change("ssid");}
-                if(!new_pass.getText().equals("")){
+                    Change("ssid");
+                }
+                if (new_pass.getText().length() == 0) {
                     password = new_pass.getText().toString();
-                    Change("password");}
+                    new_pass.setText("lonaki");
+                    //Change("password");
+                }
             }
         });
 
     }
 
-    private void Change(String chanage){
-        String Address = getText().toString();
-        try{
-            if(Address.length() <= 0){
+    private void Change(String chanage) {
+        String Add = Address.getText().toString();
+        String username = telnet_username.getText().toString();
+        String pass = telnet_pass.getText().toString();
+        int portum = 0;
+        try {
+            if (Add.length() <= 0 || username.length() <= 0 || pass.length() <= 0) {
+                throw new NumberFormatException();
             }
-            int portum = Integer.parseInt(Port.getText().toString())
-            Client myClientTask = new Client(Address, portum);
+            portum = parseInt(Port.getText().toString());
+            Client myClientTask = new Client(Add, portum, username, pass);
             myClientTask.execute(chanage);
-        }
-        catch(NumberFormatException  e){
+        } catch (NumberFormatException e) {
             AlertDialog alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("Alert");
-            alertDialog.setMessage("Dana pussy is so not wet");
+            alertDialog.setMessage("Please check the values");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -148,19 +181,20 @@ public class Router extends AppCompatActivity {
                     });
             alertDialog.show();
         }
+
     }
 
     public boolean configure(String username, String pass, String command, Socket soc) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             sendMessage(soc, username + "\r");
-            Thread.sleep(1000);
+            //Thread.sleep(3000);
             sendMessage(soc, pass + "\r");
-            Thread.sleep(1000);
-            sendMessage(soc, command + "\r");
-            Thread.sleep(1000);
-            sendMessage(soc, "nvram commit\r");
-            Thread.sleep(1000);
+            Thread.sleep(2000);
+            //sendMessage(soc, command + "\r");
+            //Thread.sleep(1000);
+            //sendMessage(soc, "nvram commit\r");
+            //Thread.sleep(1000);
             sendMessage(soc, "exit\r");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -278,7 +312,10 @@ public class Router extends AppCompatActivity {
                 while (enumInetAddress.hasMoreElements()) {
                     InetAddress inetAddress = enumInetAddress.nextElement();
                     if (inetAddress.isSiteLocalAddress()) {
-                        Deviceip += "Device ip is: " + inetAddress.getHostAddress() + "\n";}}}
+                        Deviceip += "Device ip is: " + inetAddress.getHostAddress() + "\n";
+                    }
+                }
+            }
         } catch (SocketException e) {
             e.printStackTrace();
             Deviceip += "Can't get ip! " + e.toString() + "\n";
@@ -288,13 +325,16 @@ public class Router extends AppCompatActivity {
 
 
     public class Client extends AsyncTask<String, Void, Void> {
-        String dstAddress;
+        String dstAddress, userName, password;
         int dstPort;
+
         String response = "";
 
-        Client(String addr, int port) {
+        Client(String addr, int port, String Name, String telnetpassword) {
             dstAddress = addr;
             dstPort = port;
+            userName = Name;
+            password = telnetpassword;
         }
 
         @Override
@@ -304,16 +344,14 @@ public class Router extends AppCompatActivity {
                 socket = new Socket(dstAddress, dstPort);
                 switch (command[0]) {
                     case "ssid":
-                        if (SSID.length() != 0) {
-                            configure("root", "admin", "nvram set ath0_ssid=" + SSID, socket);
-                            //wl0_channel = channel
-                            //wl0_net_mode = mixed
-                        }
+                        configure(userName, password, "nvram set ath0_ssid=" + SSID, socket);
                     case "password":
-                        if (password.length() != 0) {
-                            configure("root", "admin", "nvram set ath0_wpa_psk=" + password, socket);
-                            configure("root", "admin", "nvram set wl0_wpa_psk=" + password, socket);
-                        }
+                        configure(userName, password, "nvram set ath0_wpa_psk=" + password, socket);
+                        configure(userName, password, "nvram set wl0_wpa_psk=" + password, socket);
+                    case "channel":
+                        configure(userName, password, "nvram set wl0_channel=" + channel, socket);
+                    case "wifiMode":
+                        configure(userName, password, "nvram set wl0_net_mode=" + wifiMode, socket);
                 }
                 ByteArrayOutputStream OutputStream = new ByteArrayOutputStream(
                         1024);
@@ -348,7 +386,6 @@ public class Router extends AppCompatActivity {
             super.onPostExecute(result);
         }
     }
-
 
 
 }

@@ -22,7 +22,6 @@ import java.util.Enumeration;
 
 public class Details extends AppCompatActivity {
 
-    Button infoButton;
     private final String TAG = getClass().getSimpleName();
     TextView Frequency;
     TextView LinkSpeed;
@@ -42,7 +41,6 @@ public class Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.router_details);
 
-        infoButton = (Button) findViewById(R.id.info_button);
         Frequency = (TextView) findViewById(R.id.textView);
         LinkSpeed = (TextView) findViewById(R.id.textView2);
         BSSID = (TextView) findViewById(R.id.textView3);
@@ -54,13 +52,9 @@ public class Details extends AppCompatActivity {
 
 
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        pressed = "infoButton";
+        new LongOperation().execute(pressed);
 
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                pressed = "infoButton";
-                new LongOperation().execute(pressed);
-            }
-        });
 
     }
     private String getIpAddress() {

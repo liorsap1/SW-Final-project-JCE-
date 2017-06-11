@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="wifinet_mode">
         <item>"Wifi Network Mode"</item>
         <item>"Disabled"</item>
@@ -7,6 +8,7 @@
         <item>"B-Only"</item>
         <item>"G-Only"</item>
     </string-array>
+
     <string-array name="wifi_mode">
         <item>"Wifi Mode"</item>
         <item>"AP"</item>
@@ -16,12 +18,21 @@
         <item>"Repeater"</item>
         <item>"Repeater Bridge"</item>
     </string-array>
+
     <string-array name="wifi_BroadCastMode">
         <item>"Wireless SSID Broadcast"</item>
         <item>"Enable"</item>
         <item>"Disabled"</item>
     </string-array>
 
-
+    <string-array name="wifi_channel">
+    <item>"Wifi Channel"</item>
+    <item>"AP"</item>
+    <item>"Client"</item>
+    <item>"Client Bridge"</item>
+    <item>"Adhoc"</item>
+    <item>"Repeater"</item>
+    <item>"Repeater Bridge"</item>
+    </string-array>
 
 </resources>

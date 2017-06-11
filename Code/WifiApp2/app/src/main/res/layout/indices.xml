@@ -3,23 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@mipmap/bg">
-
-    <TextView
-            android:text="Router Indices"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="35sp"
-            android:textColor="#f63625"
-            android:layout_gravity="center"
-            android:id="@+id/title"/>
-
-    <Button
-            android:text="refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:id="@+id/refresh"/>
+              android:background="@drawable/indices">
 
     <TextView
             android:text="Router Signal:"

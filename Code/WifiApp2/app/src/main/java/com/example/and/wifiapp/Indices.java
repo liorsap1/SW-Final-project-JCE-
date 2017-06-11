@@ -67,7 +67,7 @@ public class Indices extends AppCompatActivity {
                 DataPoint dot = getWifiStrength();
                 series.appendData(dot, true, 100);
                 Log.d("indices", dot.toString());
-                signal.setText("Signal: "+dot.getY());
+                signal.setText("Signal: "+dot.getY()+"%");
                 graph.addSeries(series);
                 ha.postDelayed(this, INVOKE_FUNC);
             }

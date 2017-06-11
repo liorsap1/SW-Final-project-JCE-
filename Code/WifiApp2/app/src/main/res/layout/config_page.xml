@@ -42,28 +42,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Password"/>
-            <EditText
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="User Name"/>
+            <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Password"/>
         </LinearLayout>
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
             <Spinner android:layout_width="0dp"
                      android:layout_height="match_parent"
-                     android:layout_weight="1">
+                     android:layout_weight="1"
+                     android:entries="@array/wifi_mode"
+                     android:id="@+id/wifi_mode">
             </Spinner>
-
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <Spinner android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:entries="@array/wifinet_mode"
+                     android:id="@+id/wifi_net_mode">
+            </Spinner>
         </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +91,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+            <Spinner android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:entries="@array/wifi_BroadCastMode"
+                     android:id="@+id/wifi_BroadMode">
+            </Spinner>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <EditText
                     android:id="@+id/new_wifi_pass"
                     android:layout_width="match_parent"
@@ -88,30 +109,25 @@
                     android:layout_weight="1"
                     android:hint="Wifi password"/>
         </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        <Button
-                android:id="@+id/save"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"
-                style="@android:style/Widget.Button"/>
-
-        <Button
-            android:id="@+id/clear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Clear"
-            style="@android:style/Widget.Button"/>
-
+                android:orientation="horizontal">
+            <Button
+                    android:id="@+id/save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Save"
+                    style="@android:style/Widget.Button"/>
+            <Button
+                    android:id="@+id/clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Clear"
+                    style="@android:style/Widget.Button"/>
         </LinearLayout>
-
 
         <TextView
                 android:id="@+id/info"

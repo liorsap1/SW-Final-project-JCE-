@@ -27,8 +27,6 @@ public class Router extends AppCompatActivity {
     String SSID = "";
     String password = "";
     String channel = "";
-    String wifiMode = "";
-
 
     class Telnet {
         String user_Telnet = "";
@@ -66,8 +64,8 @@ public class Router extends AppCompatActivity {
         }
     }
 
-
     final Context context = this;
+    final int PORT = 23;
 
     //SERVER
     TextView info, infoip, msg;
@@ -78,10 +76,10 @@ public class Router extends AppCompatActivity {
     //CLIENT
     TextView textResponse;
     EditText telnet_username, telnet_pass;
-    EditText Address, Port, ssid_name, new_pass;
+    EditText Address, ssid_name, new_pass;
     Button buttonClear, btn_save;
     PrintStream printStream;
-    Spinner WiFi_net_mode,WiFi_mode,wifi_BroadMode;
+    Spinner WiFi_net_mode, WiFi_mode, wifi_BroadMode;
 
 
     @Override
@@ -94,7 +92,6 @@ public class Router extends AppCompatActivity {
         infoip = (TextView) findViewById(R.id.infoip);
         msg = (TextView) findViewById(R.id.msg);
         Address = (EditText) findViewById(R.id.address);
-        Port = (EditText) findViewById(R.id.port);
 
         //-----------CLIENT-----------
 
@@ -129,59 +126,57 @@ public class Router extends AppCompatActivity {
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             boolean change = false;
+
             @Override
             public void onClick(View v) {
-                //if (new_pass.getText().toString().length() != 0) {
+                if (ssid_name.getText().toString().length() != 0) {
                     SSID = ssid_name.getText().toString();
                     change = true;
                     Change("ssid");
-                //}
-//                if (new_pass.getText().toString().length() != 0) {
-//                    password = new_pass.getText().toString();
-//                    change = true;
-//                    Change("password");
-//                }
-//                if (!WiFi_mode.getSelectedItem().toString().equals("Wifi Mode")) {
-//                    change = true;
-//                    Change("wifiMode");
-//                }
-//                if (!WiFi_net_mode.getSelectedItem().toString().equals("Wifi Network Mode")) {
-//                    change = true;
-//                    Change("WiFiNetMode");
-//                }
-//                if (!wifi_BroadMode.getSelectedItem().toString().equals("Wireless SSID Broadcast")) {
-//                    change = true;
-//                    Change("WiFiBrodcast");
-//                }
-//                if(!change){
-//                    errMessage("Nothing to change");
-//                }
+                } else {
+                    errMessage("lo tov: " + ssid_name.getText().toString());
+                }
+                if (new_pass.getText().toString().length() != 0) {
+                    password = new_pass.getText().toString();
+                    change = true;
+                    Change("password");
+                }
+                if (!WiFi_mode.getSelectedItem().toString().equals("Wifi Mode")) {
+                    change = true;
+                    Change("wifiMode");
+                }
+                if (!WiFi_net_mode.getSelectedItem().toString().equals("Wifi Network Mode")) {
+                    change = true;
+                    Change("WiFiNetMode");
+                }
+                if (!wifi_BroadMode.getSelectedItem().toString().equals("Wireless SSID Broadcast")) {
+                    change = true;
+                    Change("WiFiBrodcast");
+                }
+                if(!change){
+                    errMessage("Nothing to change");
+                }
             }
         });
     }
 
     private void Change(String chanage) {
         String Add = Address.getText().toString();
-         Add = "192.168.1.1";
+        Add = "192.168.1.1";
         String username = telnet_username.getText().toString();
-         username = "root";
+        username = "root";
         String pass = telnet_pass.getText().toString();
-         pass = "lilo";
-        int portum = 23;
-        try {
-            if (Add.length() <= 0 || username.length() <= 0 || pass.length() <= 0) {
-                throw new NumberFormatException();
-            }
-            //portum = parseInt(Port.getText().toString());
-            Client myClientTask = new Client(Add, 23, username, pass);
-            myClientTask.execute(chanage);
-        } catch (NumberFormatException e) {
+        pass = "admin";
+        if (Add.length() <= 0 || username.length() <= 0 || pass.length() <= 0) {
             errMessage("Please check the values");
+        } else {
+            Client myClientTask = new Client(Add, PORT, username, pass);
+            myClientTask.execute(chanage);
         }
     }
 
 
-    private void errMessage(String field){
+    private void errMessage(String field) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage(field);
@@ -193,12 +188,13 @@ public class Router extends AppCompatActivity {
                 });
         alertDialog.show();
     }
+
     public boolean configure(String username, String pass, String command, Socket soc) {
         try {
             Thread.sleep(100);
-            sendMessage(soc, username+"\r");
+            sendMessage(soc, username + "\r");
             Thread.sleep(100);
-            sendMessage(soc, pass+"\r");
+            sendMessage(soc, pass + "\r");
             Thread.sleep(100);
             sendMessage(soc, command + "\r");
             Thread.sleep(1000);
@@ -332,17 +328,75 @@ public class Router extends AppCompatActivity {
         return Deviceip;
     }
 
+    private String getMode() {
+        String mode = WiFi_mode.getSelectedItem().toString();
+        if (mode.equals("Disabled")) {
+            return "disabled";
+        }
+        if (mode.equals("Mixed")) {
+            return "mixed";
+        }
+        if (mode.equals("B-Only")) {
+            return "b-only";
+        }
+        if (mode.equals("G-Only")) {
+            return "g-only";
+        }
+        return "mixed";
+    }
+
+    private String getNetMode() {
+        String mode = WiFi_mode.getSelectedItem().toString();
+        if (mode.equals("AP")) {
+            return "ap";
+        }
+        if (mode.equals("Client")) {
+            return "sta";
+        }
+        if (mode.equals("Client Bridge")) {
+            return "wet";
+        }
+        if (mode.equals("Adhoc")) {
+            return "infra";
+        }
+        if (mode.equals("Repeater")) {
+            return "apsta";
+        }
+        if (mode.equals("Repeater Bridge")) {
+            return "apstawet";
+        }
+        return "ap";
+    }
+
+    private String getBroadCastMode() {
+        String mode = WiFi_mode.getSelectedItem().toString();
+        if (mode.equals("Disabled")) {
+            return "1";
+        }
+        if (mode.equals("Enable")) {
+            return "0";
+        }
+        return "0";
+    }
+
+
+
+//===================================================================================
+    //                          Client AsyncTask
+//===================================================================================
 
     public class Client extends AsyncTask<String, Void, Void> {
         String dstAddress, userName, pass;
         int dstPort;
         String response = "";
+
         Client(String addr, int port, String Name, String telnetpassword) {
             dstAddress = addr;
             dstPort = port;
             userName = Name;
             pass = telnetpassword;
         }
+
         @Override
         protected Void doInBackground(String... command) {
             Socket socket = null;
@@ -361,13 +415,13 @@ public class Router extends AppCompatActivity {
                         configure(userName, pass, "nvram set wl0_channel=" + channel, socket);
                         break;
                     case "wifiMode":
-                        configure(userName, pass, "nvram set wl0_net_mode=" +getMode() , socket);
+                        configure(userName, pass, "nvram set wl0_net_mode=" + getMode(), socket);
                         break;
                     case "WiFiNetMode":
-                        configure(userName, pass, "nvram set wl0_mode=" +getNetMode() , socket);
+                        configure(userName, pass, "nvram set wl0_mode=" + getNetMode(), socket);
                         break;
                     case "WiFiBrodcast":
-                        configure(userName, pass, "nvram set wl0_closed=" +getBroadCastMode() , socket);
+                        configure(userName, pass, "nvram set wl0_closed=" + getBroadCastMode(), socket);
                         break;
                 }
                 ByteArrayOutputStream OutputStream = new ByteArrayOutputStream(1024);
@@ -401,30 +455,6 @@ public class Router extends AppCompatActivity {
             super.onPostExecute(result);
         }
     }
-    private String getMode(){
-        String mode = WiFi_mode.getSelectedItem().toString();
-        if(mode.equals("Disabled")){return "disabled";}
-        if(mode.equals("Mixed")){return "mixed";}
-        if(mode.equals("B-Only")){return "b-only";}
-        if(mode.equals("G-Only")){return "g-only";}
-        return "mixed";
-    }
-    private String getNetMode(){
-        String mode = WiFi_mode.getSelectedItem().toString();
-        if(mode.equals("AP")){return "ap";}
-        if(mode.equals("Client")){return "sta";}
-        if(mode.equals("Client Bridge")){return "wet";}
-        if(mode.equals("Adhoc")){return "infra";}
-        if(mode.equals("Repeater")){return "apsta";}
-        if(mode.equals("Repeater Bridge")){return "apstawet";}
-        return "ap";
-    }
-    private String getBroadCastMode(){
-        String mode = WiFi_mode.getSelectedItem().toString();
-        if(mode.equals("Disabled")){return "1";}
-        if(mode.equals("Enable")){return "0";}
-        return "0";
-    }
-
+    //===================================================================================
 
 }

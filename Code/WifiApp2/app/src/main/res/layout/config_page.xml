@@ -29,12 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Address"/>
-            <EditText
-                    android:id="@+id/port"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Port"/>
+
         </LinearLayout>
 
         <LinearLayout

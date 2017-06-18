@@ -9,8 +9,8 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/logoapp"
-            android:label="Final Project JCE"
+            android:icon="@drawable/start_icon"
+            android:label="My Signal"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".MainActivity"

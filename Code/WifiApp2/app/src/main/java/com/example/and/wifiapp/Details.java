@@ -128,10 +128,7 @@ public class Details extends AppCompatActivity {
                     OutputStream.write(buffer, 0, bytesRead);
                     response += OutputStream.toString("UTF-8");
                 }
-                System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-                System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjj");
                 System.out.println(response);
-                System.out.println("jjjjjjjjjjjjjjjjjjjjjjjjjjjj");
                 return response;
             } catch (Exception e) {
                 Log.d(TAG, "doInBackground problem");

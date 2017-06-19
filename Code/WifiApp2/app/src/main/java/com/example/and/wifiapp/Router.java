@@ -384,19 +384,18 @@ public class Router extends AppCompatActivity {
 //===================================================================================
     //                          Client AsyncTask
 //===================================================================================
+//configure(userName, password, "nvram set ath0_wpa_psk=" + password, socket);
+//configure(userName, password, "nvram set ath0_ssid=" + SSID, socket);
 
     public class Client extends AsyncTask<String, Void, Void> {
         String dstAddress, userName, pass;
-        int dstPort;
-        String response = "";
-
+        int dstPort; String response = "";
         Client(String addr, int port, String Name, String telnetpassword) {
             dstAddress = addr;
             dstPort = port;
             userName = Name;
             pass = telnetpassword;
         }
-
         @Override
         protected Void doInBackground(String... command) {
             Socket socket = null;
@@ -404,11 +403,9 @@ public class Router extends AppCompatActivity {
                 socket = new Socket(dstAddress, dstPort);
                 switch (command[0]) {
                     case "ssid":
-                        //configure(userName, password, "nvram set ath0_ssid=" + SSID, socket);
                         configure(userName, pass, "nvram set wl0_ssid=" + SSID, socket);
                         break;
                     case "password":
-                        //configure(userName, password, "nvram set ath0_wpa_psk=" + password, socket);
                         configure(userName, pass, "nvram set wl0_wpa_psk=" + password, socket);
                         break;
                     case "channel":

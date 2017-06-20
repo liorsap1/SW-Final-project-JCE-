@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/background">
-    <LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_blue">
+
+  <!--  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"> -->
+
+        <TextView
+            android:text="Router Configuration Menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <TextView
-                android:text="Router Configuration Menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:gravity="center"
-                android:layout_weight="3"
-                android:textColor="#f8850b"
-                android:textSize="25sp"
-                android:textStyle="italic"
-                android:id="@+id/title"/>
-        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/title"/>
+  <!--      <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -48,115 +51,119 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Password"/>
-        </LinearLayout>
+        </LinearLayout> -->
+
+        <EditText
+            android:id="@+id/new_ssid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="SSID name"/>
+
+        <EditText
+            android:id="@+id/new_wifi_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Wifi password"/>
+
+        <Spinner android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/wifi_mode"
+            android:id="@+id/wifi_mode">
+        </Spinner>
+
+        <Spinner android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/wifinet_mode"
+            android:id="@+id/wifi_net_mode">
+        </Spinner>
+
+
+        <Spinner android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/wifi_BroadCastMode"
+            android:id="@+id/wifi_BroadMode">
+        </Spinner>
+
+
+        <!--========================================-->
+
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <Spinner android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_weight="1"
-                     android:entries="@array/wifi_mode"
-                     android:id="@+id/wifi_mode">
-            </Spinner>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <Spinner android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_weight="1"
-                     android:entries="@array/wifinet_mode"
-                     android:id="@+id/wifi_net_mode">
-            </Spinner>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <EditText
-                    android:id="@+id/new_ssid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="SSID name"/>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <Spinner android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_weight="1"
-                     android:entries="@array/wifi_BroadCastMode"
-                     android:id="@+id/wifi_BroadMode">
-            </Spinner>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <EditText
-                    android:id="@+id/new_wifi_pass"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Wifi password"/>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <Button
-                    android:id="@+id/save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Save"
-                    style="@android:style/Widget.Button"/>
+                android:id="@+id/save"
+                style="@android:style/Widget.Button"
+                android:layout_width="104dp"
+                android:layout_height="33dp"
+                android:background="@drawable/blue_button"
+                android:text="Save"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff" />
+
             <Button
-                    android:id="@+id/clear"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Clear"
-                    style="@android:style/Widget.Button"/>
+                android:id="@+id/clear"
+                android:layout_width="104dp"
+                android:layout_height="33dp"
+                android:background="@drawable/blue_button"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="5dp"
+                android:text="Clear"
+                style="@android:style/Widget.Button"/>
         </LinearLayout>
 
-        <TextView
-                android:id="@+id/info"
-                android:hint="Server Port"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:textAlignment="textStart"/>
-        <TextView
-                android:id="@+id/infoip"
-                android:hint="Server IP"
-                android:layout_width="match_parent"
-                android:layout_gravity="right"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:textAlignment="textStart"/>
-        <TextView
-                android:id="@+id/response"
-                android:layout_width="match_parent"
-                android:textSize="15sp"
-                android:scrollbars="vertical"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:hint="Client Response"/>
-        <TextView
-                android:id="@+id/msg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:textSize="15sp"
-                android:hint="Server Response"
-                android:textAlignment="textStart"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </LinearLayout>
-</ScrollView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </ScrollView>
+
+        <!--========================================-->
+
+  <!--      <TextView
+            android:id="@+id/info"
+            android:hint="Server Port"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/infoip"
+            android:hint="Server IP"
+            android:layout_width="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:id="@+id/response"
+            android:layout_width="match_parent"
+            android:textSize="15sp"
+            android:scrollbars="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content"
+            android:hint="Client Response"/>
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Server Response"
+            /> -->
+
+        <!--========================================-->
+
+ <!--   </LinearLayout> -->
+</LinearLayout>
 
 

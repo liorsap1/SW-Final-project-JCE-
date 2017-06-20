@@ -14,11 +14,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import static android.R.id.message;
 
@@ -41,8 +39,8 @@ public class Details extends AppCompatActivity {
 
     //========  CLIENT ========//
     final int PORT = 23;
-    String user_Telnet = "";
-    String pass_Telnet = "";
+    String user_Telnet = "root";
+    String pass_Telnet = "admin";
     String router_addresses = "192.168.1.1";
     PrintStream printStream;
 
@@ -93,6 +91,7 @@ public class Details extends AppCompatActivity {
         String dstAddress, userName, pass;
         int dstPort;
         String response = "";
+        Socket socket = null;
 
         DetailsService(String addr, int port, String Name, String telnetpassword) {
             dstAddress = addr;
@@ -104,7 +103,7 @@ public class Details extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         protected String doInBackground(String... params) {
-            Socket socket = null;
+
             try {
                 socket = new Socket(dstAddress, dstPort);
                 String pressed = params[0];
@@ -112,11 +111,11 @@ public class Details extends AppCompatActivity {
                 results[0] = "Frequency: " + wifi.getConnectionInfo().getFrequency();
                 results[1] = "Link Speed: " + wifi.getConnectionInfo().getLinkSpeed();
                 results[2] = "BSSID: " + wifi.getConnectionInfo().getBSSID();
-                results[3] = "Contents: " + wifi.getConnectionInfo().describeContents();
+                results[3] = "SSID: " + wifi.getConnectionInfo().getSSID();
                 results[4] = "Ip Address: " + getIpAddress();
                 results[5] = "Network Id: " + wifi.getConnectionInfo().getNetworkId();
                 results[6] = "Mac Address: " + wifi.getConnectionInfo().getMacAddress();
-                results[7] = "SSID: " + wifi.getConnectionInfo().getSSID();
+                results[7] = "";
                 configure(userName, pass, "arp", socket);
 
 
@@ -128,12 +127,18 @@ public class Details extends AppCompatActivity {
                     OutputStream.write(buffer, 0, bytesRead);
                     response += OutputStream.toString("UTF-8");
                 }
-                System.out.println(response);
-                return response;
-            } catch (Exception e) {
-                Log.d(TAG, "doInBackground problem");
-                return null;
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                response = "UnknownHostException: " + e.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+                response = "IOException: " + e.toString();
+            } finally {
+
             }
+
+            System.out.println(response);
+            return response;
         }
 
         @Override
@@ -142,12 +147,20 @@ public class Details extends AppCompatActivity {
                 Frequency.setText(results[0]);
                 LinkSpeed.setText(results[1]);
                 BSSID.setText(results[2]);
-                Contents.setText(results[3]);
+                //Contents.setText(response);
                 IpAddress.setText(results[4]);
                 NetworkId.setText(results[5]);
                 MacAddress.setText(results[6]);
                 SSID.setText(results[7]);
-                macAdd(result);
+                usersParser(result,userName);
+                //errMessage(usersParser(result));
+                if (socket != null) {
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             } catch (Exception e) {
                 Log.d(TAG, "onPostExecute problem");
             }
@@ -211,8 +224,20 @@ public class Details extends AppCompatActivity {
         return msg;
     }
 
-    private void macAdd(String toParse) {
+    private String usersParser(String toParse,String userName) {
+
+        Vector<String> Names = new Vector<>();
+        Vector<String> MACAdd = new Vector<>();
+        Vector<String> IPAdd = new Vector<>();
+
+
+        int start = toParse.split("arp").length;
+        String tostart = userName+"@DD-WRT";
+        String parser = toParse.split("arp")[start-1].split(tostart)[0];
+
+        errMessage(parser);
         System.out.println(toParse);
+        return parser;
     }
 
 

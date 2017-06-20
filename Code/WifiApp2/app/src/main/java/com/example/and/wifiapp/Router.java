@@ -1,5 +1,6 @@
 package com.example.and.wifiapp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 
 import java.io.*;
@@ -24,47 +26,15 @@ import static java.lang.Integer.parseInt;
 
 public class Router extends AppCompatActivity {
 
-    String SSID = "";
-    String password = "";
-    String channel = "";
+    private String validateIP = "";
+    private String validateUsername = "";
+    private String validatePass = "";
 
-    class Telnet {
-        String user_Telnet = "";
-        String pass_Telnet = "";
-        String command = "";
 
-        public Telnet(String user_Telnet, String pass_Telnet, String command) {
-            this.command = command;
-            this.pass_Telnet = pass_Telnet;
-            this.user_Telnet = user_Telnet;
-        }
+    private String SSID = "";
+    private String password = "";
+    private String channel = "";
 
-        public String getUser_Telnet() {
-            return user_Telnet;
-        }
-
-        public void setUser_Telnet(String user_Telnet) {
-            this.user_Telnet = user_Telnet;
-        }
-
-        public String getCommand() {
-            return command;
-        }
-
-        public void setCommand(String command) {
-            this.command = command;
-        }
-
-        public String getPass_Telnet() {
-            return pass_Telnet;
-        }
-
-        public void setPass_Telnet(String pass_Telnet) {
-            this.pass_Telnet = pass_Telnet;
-        }
-    }
-
-    final Context context = this;
     final int PORT = 23;
 
     //SERVER
@@ -87,20 +57,22 @@ public class Router extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.config_page);
 
+
+
         //-----------SERVER-----------
-        info = (TextView) findViewById(R.id.info);
-        infoip = (TextView) findViewById(R.id.infoip);
-        msg = (TextView) findViewById(R.id.msg);
-        Address = (EditText) findViewById(R.id.address);
+//        info = (TextView) findViewById(R.id.info);
+//        infoip = (TextView) findViewById(R.id.infoip);
+//        msg = (TextView) findViewById(R.id.msg);
+     //   Address = (EditText) findViewById(R.id.address);
 
         //-----------CLIENT-----------
 
-        telnet_username = (EditText) findViewById(R.id.username);
-        telnet_pass = (EditText) findViewById(R.id.password);
+       // telnet_username = (EditText) findViewById(R.id.username);
+     //   telnet_pass = (EditText) findViewById(R.id.password);
         ssid_name = (EditText) findViewById(R.id.new_ssid);
         new_pass = (EditText) findViewById(R.id.new_wifi_pass);
         buttonClear = (Button) findViewById(R.id.clear);
-        textResponse = (TextView) findViewById(R.id.response);
+//        textResponse = (TextView) findViewById(R.id.response);
         btn_save = (Button) findViewById(R.id.save);
         WiFi_mode = (Spinner) findViewById(R.id.wifi_mode);
         WiFi_net_mode = (Spinner) findViewById(R.id.wifi_net_mode);
@@ -108,7 +80,7 @@ public class Router extends AppCompatActivity {
 
         //-----------SERVER WORKING-----------
 
-        infoip.setText(getIpAddress());
+//        infoip.setText(getIpAddress());
         Thread socketServerThread = new Thread(new SocketServerThread());
         socketServerThread.start();
 
@@ -158,16 +130,21 @@ public class Router extends AppCompatActivity {
                 }
             }
         });
+
+        callValidationDialog();
+
     }
 
     private void Change(String chanage) {
-        String Add = Address.getText().toString();
-        Add = "192.168.1.1";
-        String username = telnet_username.getText().toString();
-        username = "root";
-        String pass = telnet_pass.getText().toString();
-        pass = "admin";
-        if (Add.length() <= 0 || username.length() <= 0 || pass.length() <= 0) {
+      //  String Add = Address.getText().toString();
+        String Add = validateIP;
+       // Add = "192.168.1.1";
+       // String username = telnet_username.getText().toString();
+        String username = validateUsername;
+       // String pass = telnet_pass.getText().toString();
+        String pass = validatePass;
+      // pass = "admin";
+        if (Add.length() <= 0 || username.length() <= 0 || pass.length() <= 0) { // not necessary...
             errMessage("Please check the values");
         } else {
             Client myClientTask = new Client(Add, PORT, username, pass);
@@ -232,7 +209,7 @@ public class Router extends AppCompatActivity {
                 Router.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        info.setText("Listen to Port: " + serverSocket.getLocalPort());
+               //         info.setText("Listen to Port: " + serverSocket.getLocalPort());
                     }
                 });
                 // it suppose to synchronize with the client
@@ -453,5 +430,98 @@ public class Router extends AppCompatActivity {
         }
     }
     //===================================================================================
+
+    private void callValidationDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.alert_connect_layout);
+        dialog.setCancelable(false);
+
+        dialog.setTitle("Login");
+
+        final EditText edit_ip_address = (EditText) dialog.findViewById(R.id.alert_ip_address);
+        final EditText edit_username = (EditText)dialog.findViewById(R.id.alert_username);
+        final EditText edit_password = (EditText)dialog.findViewById(R.id.alert_password);
+        Button connect = (Button)dialog.findViewById(R.id.alert_btn_connect);
+        Button cancel = (Button)dialog.findViewById(R.id.alert_btn_cancel);
+
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                validateIP = edit_ip_address.getText().toString();
+                validateUsername = edit_username.getText().toString();
+                validatePass = edit_password.getText().toString();
+
+                if(validateIP.equals("")){
+                    Toast.makeText(getApplicationContext(), "No IP address entered", Toast.LENGTH_LONG).show();
+                }
+                if(validateUsername.equals("")){
+                    Toast.makeText(getApplicationContext(), "No username entered", Toast.LENGTH_LONG).show();
+                }
+                if(validatePass.equals("")){
+                    Toast.makeText(getApplicationContext(), "No password entered", Toast.LENGTH_LONG).show();
+                }
+
+                dialog.dismiss();
+               // if(validateIP.equals("") || validateUsername.equals("") || validatePass.equals(""))
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        try {
+            dialog.getWindow().setLayout(600, 600);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+    //===========================private class======================================
+
+//    private class Telnet {
+//        String user_Telnet = "";
+//        String pass_Telnet = "";
+//        String command = "";
+//
+//        public Telnet(String user_Telnet, String pass_Telnet, String command) {
+//            this.command = command;
+//            this.pass_Telnet = pass_Telnet;
+//            this.user_Telnet = user_Telnet;
+//        }
+//
+//        public String getUser_Telnet() {
+//            return user_Telnet;
+//        }
+//
+//        public void setUser_Telnet(String user_Telnet) {
+//            this.user_Telnet = user_Telnet;
+//        }
+//
+//        public String getCommand() {
+//            return command;
+//        }
+//
+//        public void setCommand(String command) {
+//            this.command = command;
+//        }
+//
+//        public String getPass_Telnet() {
+//            return pass_Telnet;
+//        }
+//
+//        public void setPass_Telnet(String pass_Telnet) {
+//            this.pass_Telnet = pass_Telnet;
+//        }
+//    }
+
+    //==============================================================================
 
 }

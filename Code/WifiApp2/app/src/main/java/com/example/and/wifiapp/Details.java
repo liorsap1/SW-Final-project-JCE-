@@ -11,6 +11,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.io.*;
@@ -32,6 +34,7 @@ public class Details extends AppCompatActivity {
     TextView NetworkId;
     TextView MacAddress;
     TextView SSID;
+    TableLayout users_table;
 
     WifiManager wifi;
     String pressed;
@@ -43,6 +46,7 @@ public class Details extends AppCompatActivity {
     String pass_Telnet = "admin";
     String router_addresses = "192.168.1.1";
     PrintStream printStream;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class Details extends AppCompatActivity {
         NetworkId = (TextView) findViewById(R.id.textView7);
         MacAddress = (TextView) findViewById(R.id.textView8);
         SSID = (TextView) findViewById(R.id.textView9);
+        users_table = (TableLayout) findViewById(R.id.users_table);
+
 
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         pressed = "infoButton";
@@ -152,8 +158,9 @@ public class Details extends AppCompatActivity {
                 NetworkId.setText(results[5]);
                 MacAddress.setText(results[6]);
                 SSID.setText(results[7]);
-                usersParser(result,userName);
-                //errMessage(usersParser(result));
+                Vector<String> v = usersParser(result,userName);
+                System.out.println(v.toString());
+                errMessage(v.toString());
                 if (socket != null) {
                     try {
                         socket.close();
@@ -224,21 +231,31 @@ public class Details extends AppCompatActivity {
         return msg;
     }
 
-    private String usersParser(String toParse,String userName) {
+    private Vector<String> usersParser(String toParse,String userName) {
 
-        Vector<String> Names = new Vector<>();
-        Vector<String> MACAdd = new Vector<>();
-        Vector<String> IPAdd = new Vector<>();
-
+        Vector<String> vec = new Vector<>();
 
         int start = toParse.split("arp").length;
         String tostart = userName+"@DD-WRT";
         String parser = toParse.split("arp")[start-1].split(tostart)[0];
 
-        errMessage(parser);
-        System.out.println(toParse);
-        return parser;
+        System.out.println(parser);
+
+        String[] split = parser.split(" ");
+        System.out.println(split.toString());
+
+        for(int i = 0; i < split.length; i++){
+            if(!split[i].equals("at") && !split[i].equals("[ether]") &&
+                    !split[i].equals("on") && !split[i].equals("br0\r")
+                    && !split[i].equals(" br0")&& !split[i].equals("")
+                    && !split[i].equals("br0\n")&& !split[i].equals(" "))
+                vec.add(split[i]);
+        }
+
+        return vec;
+
     }
+
 
 
 }

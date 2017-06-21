@@ -11,75 +11,51 @@
         android:orientation="vertical"> -->
 
         <TextView
-            android:text="Router Configuration Menu"
+            android:text="Router Configuration\nMenu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="4"
             android:layout_gravity="center"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
             android:id="@+id/title"/>
-  <!--      <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <EditText
-                    android:id="@+id/address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Address"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-            <EditText
-                    android:id="@+id/username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="User Name"/>
-            <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Password"/>
-        </LinearLayout> -->
 
         <EditText
             android:id="@+id/new_ssid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="SSID name"/>
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:hint="New SSID name"/>
 
         <EditText
             android:id="@+id/new_wifi_pass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Wifi password"/>
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:hint="New WiFi password"/>
 
         <Spinner android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:entries="@array/wifi_mode"
             android:id="@+id/wifi_mode">
         </Spinner>
 
         <Spinner android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:entries="@array/wifinet_mode"
             android:id="@+id/wifi_net_mode">
         </Spinner>
 
 
         <Spinner android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:entries="@array/wifi_BroadCastMode"
             android:id="@+id/wifi_BroadMode">
         </Spinner>
@@ -88,8 +64,11 @@
         <!--========================================-->
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <Button
@@ -113,15 +92,6 @@
                 style="@android:style/Widget.Button"/>
         </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </ScrollView>
 
         <!--========================================-->
 

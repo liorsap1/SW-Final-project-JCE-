@@ -12,7 +12,7 @@
             android:icon="@drawable/start_icon"
             android:label="My Signal"
             android:supportsRtl="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivity"
                   android:screenOrientation="portrait">
             <intent-filter>

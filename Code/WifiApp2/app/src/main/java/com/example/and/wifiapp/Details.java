@@ -2,6 +2,7 @@ package com.example.and.wifiapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -11,16 +12,19 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.*;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Vector;
 
 import static android.R.id.message;
+import static com.example.and.wifiapp.Constant.*;
 
 
 public class Details extends AppCompatActivity {
@@ -37,7 +41,6 @@ public class Details extends AppCompatActivity {
     TableLayout users_table;
 
     WifiManager wifi;
-    String pressed;
     String results[] = new String[20];
 
     //========  CLIENT ========//
@@ -46,27 +49,30 @@ public class Details extends AppCompatActivity {
     String pass_Telnet = "admin";
     String router_addresses = "192.168.1.1";
     PrintStream printStream;
-
+    Vector<String> users_vec;
+    private ArrayList<HashMap> list;
+    ListView lview;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.router_details);
 
-        Frequency = (TextView) findViewById(R.id.textView);
-        LinkSpeed = (TextView) findViewById(R.id.textView2);
-        BSSID = (TextView) findViewById(R.id.textView3);
-        Contents = (TextView) findViewById(R.id.textView4);
-        IpAddress = (TextView) findViewById(R.id.textView6);
-        NetworkId = (TextView) findViewById(R.id.textView7);
-        MacAddress = (TextView) findViewById(R.id.textView8);
-        SSID = (TextView) findViewById(R.id.textView9);
-        users_table = (TableLayout) findViewById(R.id.users_table);
+        SSID = (TextView) findViewById(R.id.ssid);
+        Frequency = (TextView) findViewById(R.id.frequency);
+        IpAddress = (TextView) findViewById(R.id.ipadd);
+        MacAddress = (TextView) findViewById(R.id.myMac);
 
+        LinkSpeed = (TextView) findViewById(R.id.linkSpeed);
+        NetworkId = (TextView) findViewById(R.id.netId);
+        BSSID = (TextView) findViewById(R.id.routerMac);
+
+        lview = (ListView) findViewById(R.id.listUsers);
 
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        pressed = "infoButton";
-        new DetailsService(router_addresses, PORT, user_Telnet, pass_Telnet).execute(pressed);
+
+
+        new DetailsService(router_addresses, PORT, user_Telnet, pass_Telnet).execute("infoButton");
 
     }
 
@@ -114,14 +120,21 @@ public class Details extends AppCompatActivity {
                 socket = new Socket(dstAddress, dstPort);
                 String pressed = params[0];
 
-                results[0] = "Frequency: " + wifi.getConnectionInfo().getFrequency();
-                results[1] = "Link Speed: " + wifi.getConnectionInfo().getLinkSpeed();
-                results[2] = "BSSID: " + wifi.getConnectionInfo().getBSSID();
-                results[3] = "SSID: " + wifi.getConnectionInfo().getSSID();
-                results[4] = "Ip Address: " + getIpAddress();
+                results[0] = "SSID: " + wifi.getConnectionInfo().getSSID();
+
+                String handle = ""+wifi.getConnectionInfo().getFrequency();
+                results[1] = "Frequency: "+handle.charAt(0) + "."+handle.substring(1);
+
+                results[2] = "Ip Address: " + getIpAddress();
+
+                results[3] = "My Mac Address: " + wifi.getConnectionInfo().getMacAddress();
+
+                results[4] = "Link Speed: " + wifi.getConnectionInfo().getLinkSpeed();
+
                 results[5] = "Network Id: " + wifi.getConnectionInfo().getNetworkId();
-                results[6] = "Mac Address: " + wifi.getConnectionInfo().getMacAddress();
-                results[7] = "";
+
+                results[6] = "Router MAC: " + wifi.getConnectionInfo().getBSSID();
+
                 configure(userName, pass, "arp", socket);
 
 
@@ -139,28 +152,22 @@ public class Details extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
                 response = "IOException: " + e.toString();
-            } finally {
-
             }
-
-            System.out.println(response);
             return response;
         }
 
         @Override
         protected void onPostExecute(String result) {
             try {
-                Frequency.setText(results[0]);
-                LinkSpeed.setText(results[1]);
-                BSSID.setText(results[2]);
-                //Contents.setText(response);
-                IpAddress.setText(results[4]);
+
+                SSID.setText(results[0]);
+                Frequency.setText(results[1]);
+                IpAddress.setText(results[2]);
+                MacAddress.setText(results[3]);
+                LinkSpeed.setText(results[4]);
                 NetworkId.setText(results[5]);
-                MacAddress.setText(results[6]);
-                SSID.setText(results[7]);
-                Vector<String> v = usersParser(result,userName);
-                System.out.println(v.toString());
-                errMessage(v.toString());
+                BSSID.setText(results[6]);
+                usersParser(result, userName);
                 if (socket != null) {
                     try {
                         socket.close();
@@ -231,31 +238,48 @@ public class Details extends AppCompatActivity {
         return msg;
     }
 
-    private Vector<String> usersParser(String toParse,String userName) {
+    private void usersParser(String toParse, String userName) {
 
         Vector<String> vec = new Vector<>();
 
         int start = toParse.split("arp").length;
-        String tostart = userName+"@DD-WRT";
-        String parser = toParse.split("arp")[start-1].split(tostart)[0];
-
-        System.out.println(parser);
+        String tostart = userName + "@DD-WRT";
+        String parser = toParse.split("arp")[start - 1].split(tostart)[0];
 
         String[] split = parser.split(" ");
-        System.out.println(split.toString());
 
-        for(int i = 0; i < split.length; i++){
-            if(!split[i].equals("at") && !split[i].equals("[ether]") &&
+        for (int i = 0; i < split.length; i++) {
+            if (!split[i].equals("at") && !split[i].equals("[ether]") &&
                     !split[i].equals("on") && !split[i].equals("br0\r")
-                    && !split[i].equals(" br0")&& !split[i].equals("")
-                    && !split[i].equals("br0\n")&& !split[i].equals(" "))
+                    && !split[i].equals(" br0") && !split[i].equals("")
+                    && !split[i].equals("br0\n") && !split[i].equals(" "))
                 vec.add(split[i]);
         }
 
-        return vec;
+        populateList(vec);
+        listviewAdapter adapter = new listviewAdapter(this, list);
+        lview.setAdapter(adapter);
 
     }
 
+    private void populateList(Vector<String> v) {
 
+        list = new ArrayList<HashMap>();
+
+        HashMap temp = new HashMap();
+        temp.put(FIRST_COLUMN, "#");
+        temp.put(SECOND_COLUMN, "IP");
+        temp.put(THIRD_COLUMN, "MAC");
+        temp.put(FOURTH_COLUMN, "USER");
+        list.add(temp);
+        for (int i = 0; i < v.size(); i += 4) {
+            HashMap t = new HashMap();
+            t.put(FIRST_COLUMN, "" + i / 4);
+            t.put(SECOND_COLUMN, v.get(i + 1));
+            t.put(THIRD_COLUMN, v.get(i + 2));
+            t.put(FOURTH_COLUMN, v.get(i));
+            list.add(t);
+        }
+    }
 
 }

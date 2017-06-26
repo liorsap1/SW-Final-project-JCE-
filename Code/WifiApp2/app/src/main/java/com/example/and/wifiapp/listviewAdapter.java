@@ -49,7 +49,6 @@ public class listviewAdapter extends BaseAdapter
         TextView txtFirst;
         TextView txtSecond;
         TextView txtThird;
-        TextView txtFourth;
     }
 
     @Override
@@ -67,7 +66,6 @@ public class listviewAdapter extends BaseAdapter
             holder.txtFirst = (TextView) convertView.findViewById(R.id.FirstText);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
             holder.txtThird = (TextView) convertView.findViewById(R.id.ThirdText);
-            holder.txtFourth = (TextView) convertView.findViewById(R.id.FourthText);
             convertView.setTag(holder);
         }
         else
@@ -79,7 +77,6 @@ public class listviewAdapter extends BaseAdapter
         holder.txtFirst.setText(""+map.get(FIRST_COLUMN));
         holder.txtSecond.setText(""+map.get(SECOND_COLUMN));
         holder.txtThird.setText(""+map.get(THIRD_COLUMN));
-        holder.txtFourth.setText(""+map.get(FOURTH_COLUMN));
 
         return convertView;
     }

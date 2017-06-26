@@ -191,9 +191,9 @@ public class Details extends AppCompatActivity {
 
     private void errMessage(String field) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Alert");
+        alertDialog.setTitle("New User Request To Connect!");
         alertDialog.setMessage(field);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -239,15 +239,11 @@ public class Details extends AppCompatActivity {
     }
 
     private void usersParser(String toParse, String userName) {
-
         Vector<String> vec = new Vector<>();
-
         int start = toParse.split("arp").length;
         String tostart = userName + "@DD-WRT";
         String parser = toParse.split("arp")[start - 1].split(tostart)[0];
-
         String[] split = parser.split(" ");
-
         for (int i = 0; i < split.length; i++) {
             if (!split[i].equals("at") && !split[i].equals("[ether]") &&
                     !split[i].equals("on") && !split[i].equals("br0\r")
@@ -255,11 +251,9 @@ public class Details extends AppCompatActivity {
                     && !split[i].equals("br0\n") && !split[i].equals(" "))
                 vec.add(split[i]);
         }
-
         populateList(vec);
         listviewAdapter adapter = new listviewAdapter(this, list);
         lview.setAdapter(adapter);
-
     }
 
     private void populateList(Vector<String> v) {
@@ -267,17 +261,15 @@ public class Details extends AppCompatActivity {
         list = new ArrayList<HashMap>();
 
         HashMap temp = new HashMap();
-        temp.put(FIRST_COLUMN, "#");
-        temp.put(SECOND_COLUMN, "IP");
-        temp.put(THIRD_COLUMN, "MAC");
-        temp.put(FOURTH_COLUMN, "USER");
+        temp.put(FIRST_COLUMN, "|USER");
+        temp.put(SECOND_COLUMN, "|MAC");
+        temp.put(THIRD_COLUMN, "|IP");
         list.add(temp);
         for (int i = 0; i < v.size(); i += 4) {
             HashMap t = new HashMap();
-            t.put(FIRST_COLUMN, "" + i / 4);
-            t.put(SECOND_COLUMN, v.get(i + 1));
-            t.put(THIRD_COLUMN, v.get(i + 2));
-            t.put(FOURTH_COLUMN, v.get(i));
+            t.put(THIRD_COLUMN, "| "+v.get(i + 1).substring(1,v.get(i + 1).length()-1));
+            t.put(SECOND_COLUMN, "| "+v.get(i + 2));
+            t.put(FIRST_COLUMN, "| "+v.get(i).substring(2,(v.get(i).length())/2));
             list.add(t);
         }
     }

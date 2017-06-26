@@ -33,7 +33,7 @@ public class Router extends AppCompatActivity {
 
     private String SSID = "";
     private String password = "";
-    private String channel = "";
+    private String Sensative_Range = "";
 
     final int PORT = 23;
 
@@ -46,10 +46,10 @@ public class Router extends AppCompatActivity {
     //CLIENT
     TextView textResponse;
     EditText telnet_username, telnet_pass;
-    EditText Address, ssid_name, new_pass;
+    EditText Address, ssid_name, new_pass,Sens_Range;
     Button buttonClear, btn_save;
     PrintStream printStream;
-    Spinner WiFi_net_mode, WiFi_mode, wifi_BroadMode;
+    Spinner WiFi_net_mode, WiFi_mode, wifi_BroadMode,WiFi_channel;
 
 
     @Override
@@ -71,12 +71,14 @@ public class Router extends AppCompatActivity {
      //   telnet_pass = (EditText) findViewById(R.id.password);
         ssid_name = (EditText) findViewById(R.id.new_ssid);
         new_pass = (EditText) findViewById(R.id.new_wifi_pass);
+        Sens_Range = (EditText) findViewById(R.id.Sensitivity_Range);
         buttonClear = (Button) findViewById(R.id.clear);
 //        textResponse = (TextView) findViewById(R.id.response);
         btn_save = (Button) findViewById(R.id.save);
         WiFi_mode = (Spinner) findViewById(R.id.wifi_mode);
         WiFi_net_mode = (Spinner) findViewById(R.id.wifi_net_mode);
         wifi_BroadMode = (Spinner) findViewById(R.id.wifi_BroadMode);
+        WiFi_channel = (Spinner) findViewById(R.id.wifi_Channel);
 
         //-----------SERVER WORKING-----------
 
@@ -89,10 +91,15 @@ public class Router extends AppCompatActivity {
         buttonClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textResponse.setText("");
+                //textResponse.setText("");
                 ssid_name.setText("");
                 new_pass.setText("");
-                msg.setText("");
+                Sens_Range.setText("");
+                //msg.setText("");
+                WiFi_mode.setSelection(0);
+                WiFi_net_mode.setSelection(0);
+                wifi_BroadMode.setSelection(0);
+                WiFi_channel.setSelection(0);
             }
         });
 
@@ -105,13 +112,16 @@ public class Router extends AppCompatActivity {
                     SSID = ssid_name.getText().toString();
                     change = true;
                     Change("ssid");
-                } else {
-                    errMessage("lo tov: " + ssid_name.getText().toString());
                 }
                 if (new_pass.getText().toString().length() != 0) {
                     password = new_pass.getText().toString();
                     change = true;
                     Change("password");
+                }
+                if (Sens_Range.getText().toString().length() != 0) {
+                    Sensative_Range = Sens_Range.getText().toString();
+                    change = true;
+                    Change("Sensative_Range");
                 }
                 if (!WiFi_mode.getSelectedItem().toString().equals("Wifi Mode")) {
                     change = true;
@@ -124,6 +134,10 @@ public class Router extends AppCompatActivity {
                 if (!wifi_BroadMode.getSelectedItem().toString().equals("Wireless SSID Broadcast")) {
                     change = true;
                     Change("WiFiBrodcast");
+                }
+                if (!WiFi_channel.getSelectedItem().toString().equals("Wifi Channel")) {
+                    change = true;
+                    Change("channel");
                 }
                 if(!change){
                     errMessage("Nothing to change");
@@ -321,9 +335,26 @@ public class Router extends AppCompatActivity {
         }
         return "mixed";
     }
+    private String getChannel() {
+        String channel = WiFi_channel.getSelectedItem().toString();
+        if (channel.equals("1 - 2.412 GHz")) {return "1";}
+        if (channel.equals("2 - 2.417 GHz")) {return "2";}
+        if (channel.equals("3 - 2.422 GHz")) {return "3";}
+        if (channel.equals("4 - 2.427 GHz")) {return "4";}
+        if (channel.equals("5 - 2.432 GHz")) {return "5";}
+        if (channel.equals("6 - 2.437 GHz")) {return "6";}
+        if (channel.equals("7 - 2.442 GHz")) {return "7";}
+        if (channel.equals("8 - 2.447 GHz")) {return "8";}
+        if (channel.equals("9 - 2.452 GHz")) {return "9";}
+        if (channel.equals("10 - 2.457 GHz")) {return "10";}
+        if (channel.equals("11 - 2.462 GHz")) {return "11";}
+        if (channel.equals("12 - 2.467 GHz")) {return "12";}
+        if (channel.equals("13 - 2.472 GHz")) {return "13";}
+        return "6";
+    }
 
     private String getNetMode() {
-        String mode = WiFi_mode.getSelectedItem().toString();
+        String mode = WiFi_net_mode.getSelectedItem().toString();
         if (mode.equals("AP")) {
             return "ap";
         }
@@ -385,8 +416,11 @@ public class Router extends AppCompatActivity {
                     case "password":
                         configure(userName, pass, "nvram set wl0_wpa_psk=" + password, socket);
                         break;
+                    case "Sensative_Range":
+                        configure(userName, pass, "nvram set wl0_distance=" + Sensative_Range, socket);
+                        break;
                     case "channel":
-                        configure(userName, pass, "nvram set wl0_channel=" + channel, socket);
+                        configure(userName, pass, "nvram set wl0_channel=" + getChannel(), socket);
                         break;
                     case "wifiMode":
                         configure(userName, pass, "nvram set wl0_net_mode=" + getMode(), socket);
@@ -477,11 +511,7 @@ public class Router extends AppCompatActivity {
         });
 
         dialog.show();
-        try {
-            dialog.getWindow().setLayout(600, 600);
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
+
     }
 
     //===========================private class======================================

@@ -27,12 +27,20 @@
 
     <string-array name="wifi_channel">
     <item>"Wifi Channel"</item>
-    <item>"AP"</item>
-    <item>"Client"</item>
-    <item>"Client Bridge"</item>
-    <item>"Adhoc"</item>
-    <item>"Repeater"</item>
-    <item>"Repeater Bridge"</item>
+    <item>"1 - 2.412 GHz"</item>
+    <item>"2 - 2.417 GHz"</item>
+    <item>"3 - 2.422 GHz"</item>
+    <item>"4 - 2.427 GHz"</item>
+    <item>"5 - 2.432 GHz"</item>
+    <item>"6 - 2.437 GHz"</item>
+    <item>"7 - 2.442 GHz"</item>
+    <item>"8 - 2.447 GHz"</item>
+    <item>"9 - 2.452 GHz"</item>
+    <item>"10 - 2.457 GHz"</item>
+    <item>"11 - 2.462 GHz"</item>
+    <item>"12 - 2.467 GHz"</item>
+    <item>"13 - 2.472 GHz"</item>
+
     </string-array>
 
 </resources>

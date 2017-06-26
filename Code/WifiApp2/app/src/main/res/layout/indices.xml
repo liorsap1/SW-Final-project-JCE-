@@ -3,25 +3,66 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/background_blue">
+              android:background="@drawable/blue_background3">
 
     <TextView
-        android:text="Router Signal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center"
-        android:id="@+id/range"/>
+            android:text="Router Signal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/range"/>
 
     <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="300dip"
-        android:id="@+id/graph"
-        android:background="#00ffffff"
-        />
+            android:layout_width="match_parent"
+            android:layout_height="300dip"
+            android:id="@+id/graph"
+            android:background="#00ffffff"
+    />
+    <TextView
+            android:text="SECONDS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:id="@+id/flat"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center">
+        <Button
+                android:id="@+id/save"
+                style="@android:style/Widget.Button"
+                android:layout_width="80dp"
+                android:layout_height="135dp"
+                android:layout_margin="35dp"
+                android:background="@drawable/pin_location"
+                android:text="Save"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:textColor="#000000"/>
+
+        <Button
+                android:id="@+id/map"
+                style="@android:style/Widget.Button"
+                android:layout_width="185dp"
+                android:layout_height="180dp"
+                android:layout_margin="25dp"
+                android:background="@drawable/map"
+                android:text="map"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:textColor="#000000"/>
+
+    </LinearLayout>
 
 </LinearLayout>
+

@@ -83,8 +83,8 @@ public class Router extends AppCompatActivity {
         //-----------SERVER WORKING-----------
 
 //        infoip.setText(getIpAddress());
-        Thread socketServerThread = new Thread(new SocketServerThread());
-        socketServerThread.start();
+//        Thread socketServerThread = new Thread(new SocketServerThread());
+//        socketServerThread.start();
 
         //-----------  BUTTON SAVE LISTENER  -----------
 

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView infoButton;
     private ImageView config_telnet_Button;
     private ImageView indicesButton;
+    public static Boolean firstTime = true;
     //private SharedPreferences
 
     @Override
@@ -72,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(firstTime){
+            startService();
+            firstTime = false;
+        }
+
+
     }
 
     private boolean checkWifiOnAndConnected() {
@@ -98,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+
+    public void startService() {
+        startService(new Intent(getBaseContext(), MyService.class));
+    }
+
+    // Method to stop the service
+    public void stopService() {
+        stopService(new Intent(getBaseContext(), MyService.class));
     }
 
 // </editor-fold>

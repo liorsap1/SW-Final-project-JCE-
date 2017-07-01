@@ -94,7 +94,7 @@ public class ConfirmActivity extends AppCompatActivity {
         @Override
         public void run() {
             OutputStream outputStream;
-            String msgReply = "Hello from Server  " + cnt;
+            String msgReply = cnt;
 
             try {
                 outputStream = socket.getOutputStream();

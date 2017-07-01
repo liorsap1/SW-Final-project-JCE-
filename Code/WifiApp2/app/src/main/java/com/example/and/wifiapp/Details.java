@@ -1,5 +1,6 @@
 package com.example.and.wifiapp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.widget.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Vector;
@@ -41,7 +43,7 @@ public class Details extends AppCompatActivity {
     TableLayout users_table;
 
     WifiManager wifi;
-    String results[] = new String[20];
+
 
     //========  CLIENT ========//
     final int PORT = 23;
@@ -52,6 +54,7 @@ public class Details extends AppCompatActivity {
     Vector<String> users_vec;
     private ArrayList<HashMap> list;
     ListView lview;
+    ListView listUsers;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,11 +71,13 @@ public class Details extends AppCompatActivity {
         BSSID = (TextView) findViewById(R.id.routerMac);
 
         lview = (ListView) findViewById(R.id.listUsers);
+        listUsers = (ListView)findViewById(R.id.listDetails);
 
         wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 
 
-        new DetailsService(router_addresses, PORT, user_Telnet, pass_Telnet).execute("infoButton");
+        callValidationDialog();
+
 
     }
 
@@ -104,6 +109,7 @@ public class Details extends AppCompatActivity {
         int dstPort;
         String response = "";
         Socket socket = null;
+        String results[][] = new String[20][2];
 
         DetailsService(String addr, int port, String Name, String telnetpassword) {
             dstAddress = addr;
@@ -117,35 +123,38 @@ public class Details extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try {
-                socket = new Socket(dstAddress, dstPort);
+
                 String pressed = params[0];
 
-                results[0] = "SSID: " + wifi.getConnectionInfo().getSSID();
+                switch(pressed){
+                    case "details":
+                        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+                        results[0][0] = "SSID: " + wifi.getConnectionInfo().getSSID();
+                        results[0][1] = ""+wifi.getConnectionInfo().getSSID();
+                        String handle = ""+wifi.getConnectionInfo().getFrequency();
+                        results[1][0] = "Frequency: "+handle.charAt(0) + "."+handle.substring(1);
+                        results[2][0] = "Ip Address: " + getIpAddress();
+                        results[3][0] = "My Mac Address: " + wifi.getConnectionInfo().getMacAddress();
+                        results[4][0] = "Internet Speed : " + wifi.getConnectionInfo().getLinkSpeed() +"Mega";
+                        results[5][0] = "Network Id: " + wifi.getConnectionInfo().getNetworkId();
+                        results[6][0] = "Router MAC: " + wifi.getConnectionInfo().getBSSID();
 
-                String handle = ""+wifi.getConnectionInfo().getFrequency();
-                results[1] = "Frequency: "+handle.charAt(0) + "."+handle.substring(1);
+                        break;
 
-                results[2] = "Ip Address: " + getIpAddress();
-
-                results[3] = "My Mac Address: " + wifi.getConnectionInfo().getMacAddress();
-
-                results[4] = "Link Speed: " + wifi.getConnectionInfo().getLinkSpeed();
-
-                results[5] = "Network Id: " + wifi.getConnectionInfo().getNetworkId();
-
-                results[6] = "Router MAC: " + wifi.getConnectionInfo().getBSSID();
-
-                configure(userName, pass, "arp", socket);
-
-
-                ByteArrayOutputStream OutputStream = new ByteArrayOutputStream(1024);
-                byte[] buffer = new byte[1024];
-                int bytesRead;
-                InputStream inputStream = socket.getInputStream();
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    OutputStream.write(buffer, 0, bytesRead);
-                    response += OutputStream.toString("UTF-8");
+                    case "users":
+                        socket = new Socket(dstAddress, dstPort);
+                        configure(userName, pass, "arp", socket);
+                        ByteArrayOutputStream OutputStream = new ByteArrayOutputStream(1024);
+                        byte[] buffer = new byte[1024];
+                        int bytesRead;
+                        InputStream inputStream = socket.getInputStream();
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            OutputStream.write(buffer, 0, bytesRead);
+                            response += OutputStream.toString("UTF-8");
+                        }
+                        break;
                 }
+
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 response = "UnknownHostException: " + e.toString();
@@ -153,28 +162,33 @@ public class Details extends AppCompatActivity {
                 e.printStackTrace();
                 response = "IOException: " + e.toString();
             }
+
             return response;
         }
 
         @Override
         protected void onPostExecute(String result) {
             try {
-
-                SSID.setText(results[0]);
-                Frequency.setText(results[1]);
-                IpAddress.setText(results[2]);
-                MacAddress.setText(results[3]);
-                LinkSpeed.setText(results[4]);
-                NetworkId.setText(results[5]);
-                BSSID.setText(results[6]);
-                usersParser(result, userName);
-                if (socket != null) {
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if(result.equals("")){
+                    SSID.setText(results[0][0]);
+                    Frequency.setText(results[1][0]);
+                    IpAddress.setText(results[2][0]);
+                    MacAddress.setText(results[3][0]);
+                    LinkSpeed.setText(results[4][0]);
+                    NetworkId.setText(results[5][0]);
+                    BSSID.setText(results[6][0]);
+                }
+                if(result.length() > 0){
+                    usersParser(result, userName);
+                    if (socket != null) {
+                        try {
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
+
             } catch (Exception e) {
                 Log.d(TAG, "onPostExecute problem");
             }
@@ -272,6 +286,62 @@ public class Details extends AppCompatActivity {
             t.put(FIRST_COLUMN, "| "+v.get(i).substring(2,(v.get(i).length())/2));
             list.add(t);
         }
+
+    }
+    private void callValidationDialog(){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.alert_connect_layout);
+        dialog.setCancelable(false);
+
+        dialog.setTitle("Login");
+
+        final EditText edit_ip_address = (EditText) dialog.findViewById(R.id.alert_ip_address);
+        final EditText edit_username = (EditText)dialog.findViewById(R.id.alert_username);
+        final EditText edit_password = (EditText)dialog.findViewById(R.id.alert_password);
+        Button connect = (Button)dialog.findViewById(R.id.alert_btn_connect);
+        Button cancel = (Button)dialog.findViewById(R.id.alert_btn_cancel);
+
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                router_addresses = edit_ip_address.getText().toString();
+                user_Telnet = edit_username.getText().toString();
+                pass_Telnet = edit_password.getText().toString();
+
+                if(router_addresses.equals("")){
+                    Toast.makeText(getApplicationContext(), "No IP address entered", Toast.LENGTH_LONG).show();
+                }
+                if(user_Telnet.equals("")){
+                    Toast.makeText(getApplicationContext(), "No username entered", Toast.LENGTH_LONG).show();
+                }
+                if(pass_Telnet.equals("")){
+                    Toast.makeText(getApplicationContext(), "No password entered", Toast.LENGTH_LONG).show();
+                }
+
+                new DetailsService(router_addresses, PORT, user_Telnet, pass_Telnet).execute("details");
+                new DetailsService(router_addresses, PORT, user_Telnet, pass_Telnet).execute("users");
+
+
+                dialog.dismiss();
+                // if(validateIP.equals("") || validateUsername.equals("") || validatePass.equals(""))
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new DetailsService(router_addresses, PORT, user_Telnet, pass_Telnet).execute("details");
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
 }

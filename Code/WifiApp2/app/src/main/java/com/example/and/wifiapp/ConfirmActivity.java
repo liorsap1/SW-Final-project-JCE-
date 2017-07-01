@@ -1,10 +1,13 @@
 package com.example.and.wifiapp;
 
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,17 +33,15 @@ public class ConfirmActivity extends AppCompatActivity {
 
 
         socket = MyService.socket;
-        if(socket == null){
+        if (socket == null) {
             Toast.makeText(this, "kdfgpde", Toast.LENGTH_SHORT).show();
         }
 
 
-
-        if(bund.getString("mes") != null) {
+        if (bund.getString("mes") != null) {
             errMessage(bund.getString("mes"));
-           // socket = gson.fromJson(bund.getString("soc"), Socket.class);
+            // socket = gson.fromJson(bund.getString("soc"), Socket.class);
         }
-
 
 
     }
@@ -107,5 +108,16 @@ public class ConfirmActivity extends AppCompatActivity {
                 //errMessages( "Something wrong! " + e.toString() + "\n");
             }
         }
+    }
+
+    public void sendNotification(View view) {
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.start_icon)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!");
+        NotificationManager mNotificationManager = (NotificationManager)
+                getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
+        mNotificationManager.notify(001, mBuilder.build());
     }
 }

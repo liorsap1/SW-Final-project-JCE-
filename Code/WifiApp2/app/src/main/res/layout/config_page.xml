@@ -1,152 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:background="@drawable/blue_background3">
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue_background3"
+    android:orientation="vertical">
 
-    <!--  <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical"> -->
 
-    <TextView
-            android:text="Router Configuration\nMenu"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/title"/>
-
-    <EditText
-            android:id="@+id/new_ssid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:hint="New SSID name"/>
-
-    <EditText
-        android:id="@+id/new_wifi_pass"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:hint="New WiFi password"/>
+        android:layout_height="fill_parent"
+        android:fillViewport="true">
 
-    <EditText
-            android:id="@+id/Sensitivity_Range"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:hint="Sensitivity Range (Default: 2000 meters)"/>
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-    <Spinner android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="2"
-             android:entries="@array/wifi_mode"
-             android:id="@+id/wifi_mode">
-    </Spinner>
-
-    <Spinner android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="2"
-             android:entries="@array/wifinet_mode"
-             android:id="@+id/wifi_net_mode">
-    </Spinner>
-
-    <Spinner android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="2"
-             android:entries="@array/wifi_channel"
-             android:id="@+id/wifi_Channel">
-    </Spinner>
-
-    <Spinner android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="2"
-             android:entries="@array/wifi_BroadCastMode"
-             android:id="@+id/wifi_BroadMode">
-    </Spinner>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Router Configuration"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
 
-    <!--========================================-->
+            <EditText
+                android:id="@+id/new_ssid"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:hint="New SSID name" />
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="40dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/new_wifi_pass"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:hint="New WiFi password" />
 
-        <Button
-                android:id="@+id/save"
-                style="@android:style/Widget.Button"
-                android:layout_width="104dp"
-                android:layout_height="33dp"
-                android:background="@drawable/blue_button"
-                android:text="Save"
-                android:layout_marginLeft="5dp"
-                android:textColor="#ffffff"/>
+            <EditText
+                android:id="@+id/Sensitivity_Range"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:hint="Sensitivity Range (Default: 2000 m')" />
 
-        <Button
-                android:id="@+id/clear"
-                android:layout_width="104dp"
-                android:layout_height="33dp"
-                android:background="@drawable/blue_button"
-                android:textColor="#ffffff"
-                android:layout_marginLeft="5dp"
-                android:text="Clear"
-                style="@android:style/Widget.Button"/>
-    </LinearLayout>
+            <Spinner
+                android:id="@+id/wifi_mode"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:entries="@array/wifi_mode"></Spinner>
 
+            <Spinner
+                android:id="@+id/wifi_net_mode"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:entries="@array/wifinet_mode"></Spinner>
 
-    <!--========================================-->
+            <Spinner
+                android:id="@+id/wifi_Channel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:entries="@array/wifi_channel"></Spinner>
 
-    <!--      <TextView
-              android:id="@+id/info"
-              android:hint="Server Port"
-              android:layout_width="match_parent"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
-              android:layout_height="wrap_content"
-              />
-          <TextView
-              android:id="@+id/infoip"
-              android:hint="Server IP"
-              android:layout_width="match_parent"
-              android:layout_gravity="right"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
-              android:layout_height="wrap_content"
-              />
-          <TextView
-              android:id="@+id/response"
-              android:layout_width="match_parent"
-              android:textSize="15sp"
-              android:scrollbars="vertical"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
-              android:layout_height="wrap_content"
-              android:hint="Client Response"/>
-          <TextView
-              android:id="@+id/msg"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textSize="15sp"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
-              android:hint="Server Response"
-              /> -->
+            <Spinner
+                android:id="@+id/wifi_BroadMode"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:entries="@array/wifi_BroadCastMode"></Spinner>
 
-    <!--========================================-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
 
-    <!--   </LinearLayout> -->
+                <Button
+                    android:id="@+id/save"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="104dp"
+                    android:layout_height="33dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/blue_button"
+                    android:text="Save"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/clear"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="104dp"
+                    android:layout_height="33dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/blue_button"
+                    android:text="Clear"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
 
 

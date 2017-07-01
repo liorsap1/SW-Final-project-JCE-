@@ -30,6 +30,8 @@ public class Router extends AppCompatActivity {
     private String validateUsername = "";
     private String validatePass = "";
 
+    private static boolean knowledge = false;
+
 
     private String SSID = "";
     private String password = "";
@@ -108,39 +110,45 @@ public class Router extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (ssid_name.getText().toString().length() != 0) {
-                    SSID = ssid_name.getText().toString();
-                    change = true;
-                    Change("ssid");
+
+                if(knowledge) {
+                    if (ssid_name.getText().toString().length() != 0) {
+                        SSID = ssid_name.getText().toString();
+                        change = true;
+                        Change("ssid");
+                    }
+                    if (new_pass.getText().toString().length() != 0) {
+                        password = new_pass.getText().toString();
+                        change = true;
+                        Change("password");
+                    }
+                    if (Sens_Range.getText().toString().length() != 0) {
+                        Sensative_Range = Sens_Range.getText().toString();
+                        change = true;
+                        Change("Sensative_Range");
+                    }
+                    if (!WiFi_mode.getSelectedItem().toString().equals("Wifi Mode")) {
+                        change = true;
+                        Change("wifiMode");
+                    }
+                    if (!WiFi_net_mode.getSelectedItem().toString().equals("Wifi Network Mode")) {
+                        change = true;
+                        Change("WiFiNetMode");
+                    }
+                    if (!wifi_BroadMode.getSelectedItem().toString().equals("Wireless SSID Broadcast")) {
+                        change = true;
+                        Change("WiFiBrodcast");
+                    }
+                    if (!WiFi_channel.getSelectedItem().toString().equals("Wifi Channel")) {
+                        change = true;
+                        Change("channel");
+                    }
+                    if (!change) {
+                        errMessage("Nothing to change");
+                    }
                 }
-                if (new_pass.getText().toString().length() != 0) {
-                    password = new_pass.getText().toString();
-                    change = true;
-                    Change("password");
-                }
-                if (Sens_Range.getText().toString().length() != 0) {
-                    Sensative_Range = Sens_Range.getText().toString();
-                    change = true;
-                    Change("Sensative_Range");
-                }
-                if (!WiFi_mode.getSelectedItem().toString().equals("Wifi Mode")) {
-                    change = true;
-                    Change("wifiMode");
-                }
-                if (!WiFi_net_mode.getSelectedItem().toString().equals("Wifi Network Mode")) {
-                    change = true;
-                    Change("WiFiNetMode");
-                }
-                if (!wifi_BroadMode.getSelectedItem().toString().equals("Wireless SSID Broadcast")) {
-                    change = true;
-                    Change("WiFiBrodcast");
-                }
-                if (!WiFi_channel.getSelectedItem().toString().equals("Wifi Channel")) {
-                    change = true;
-                    Change("channel");
-                }
-                if(!change){
-                    errMessage("Nothing to change");
+                else{
+                    errMessage("Sorry: You Need To LogIn Telnet Before.");
                 }
             }
         });
@@ -188,9 +196,9 @@ public class Router extends AppCompatActivity {
             sendMessage(soc, pass + "\r");
             Thread.sleep(100);
             sendMessage(soc, command + "\r");
-            Thread.sleep(1000);
+            Thread.sleep(500);
             sendMessage(soc, "nvram commit\r");
-            Thread.sleep(1000);
+            Thread.sleep(500);
             sendMessage(soc, "exit\r");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -496,9 +504,12 @@ public class Router extends AppCompatActivity {
                 if(validatePass.equals("")){
                     Toast.makeText(getApplicationContext(), "No password entered", Toast.LENGTH_LONG).show();
                 }
+                if(!validateIP.equals("") && !validateUsername.equals("") && !validatePass.equals(""))
+                {
+                    knowledge = true;
+                    dialog.dismiss();
+                }
 
-                dialog.dismiss();
-               // if(validateIP.equals("") || validateUsername.equals("") || validatePass.equals(""))
 
             }
         });
@@ -506,6 +517,7 @@ public class Router extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                knowledge = false;
                 dialog.dismiss();
             }
         });

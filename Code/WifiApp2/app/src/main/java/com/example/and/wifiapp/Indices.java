@@ -65,12 +65,16 @@ public class Indices extends AppCompatActivity {
         map.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("point", "Signal: "+holdSignal+"%");
                 startActivity(intent);
             }
         });
         save_on_map.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MapsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("point", "Signal: "+holdSignal+"%");
                 startActivity(intent);
             }
         });

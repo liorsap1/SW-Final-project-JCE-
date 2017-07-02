@@ -19,47 +19,35 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name=".WelcomeActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Router"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".Indices"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".MapsActivity"
             android:screenOrientation="portrait">
-
         </activity>
         <activity
             android:name=".Details"
             android:screenOrientation="portrait">
-
         </activity>
         <activity android:name=".ConfirmActivity">
-
         </activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA1TpGV8Cm2MgSW_LS01mjWWTUpfSr1RhI" />
-
         <service android:name=".MyService" />
-
     </application>
-
 </manifest>

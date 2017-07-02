@@ -86,17 +86,13 @@ public class MyService extends Service {
                 serverSocket = new ServerSocket(SocketServerPORT);
 
                 while (true) {
+                    message = "";
                     socket = serverSocket.accept();
                     count++;
-                    message += "#" + count + " from " + socket.getInetAddress()
-                            + ":" + socket.getPort() + "\n";
-
-                   ///intent here to send
+                    message = count+" New user Try to connect : "+
+                            socket.getInetAddress()+"\n";
                     Intent i = new Intent(MyService.this, ConfirmActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(socket);
-                    i.putExtra("soc", json);
                     i.putExtra("mes", message);
                     startActivity(i);
 

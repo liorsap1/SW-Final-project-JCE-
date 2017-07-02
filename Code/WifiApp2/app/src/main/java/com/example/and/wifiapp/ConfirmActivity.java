@@ -19,9 +19,6 @@ import java.net.Socket;
 
 public class ConfirmActivity extends AppCompatActivity {
 
-    String getCO = "";
-    public static String answer = "";
-    private Gson gson;
     Socket socket;
 
     @Override
@@ -29,21 +26,15 @@ public class ConfirmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
         Bundle bund = getIntent().getExtras();
-        gson = new Gson();
-
-
         socket = MyService.socket;
+        sendNotification();
         if (socket == null) {
-            Toast.makeText(this, "kdfgpde", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "socket null", Toast.LENGTH_SHORT).show();
         }
-
-
         if (bund.getString("mes") != null) {
             errMessage(bund.getString("mes"));
             // socket = gson.fromJson(bund.getString("soc"), Socket.class);
         }
-
-
     }
 
 
@@ -55,7 +46,7 @@ public class ConfirmActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        ConfirmActivity.SocketServerReplyThread socketServerReplyThread = new ConfirmActivity.SocketServerReplyThread("Yes");
+                        ConfirmActivity.SocketServerReplyThread socketServerReplyThread = new ConfirmActivity.SocketServerReplyThread("1");
                         socketServerReplyThread.run();
                         Intent intent1 = new Intent(ConfirmActivity.this, MainActivity.class);
                         intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -63,7 +54,7 @@ public class ConfirmActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -93,29 +84,24 @@ public class ConfirmActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            OutputStream outputStream;
-            String msgReply = cnt;
-
+            OutputStream outputStream = null;
             try {
                 outputStream = socket.getOutputStream();
                 PrintStream printStream = new PrintStream(outputStream);
-                printStream.print(msgReply);
+                printStream.print(cnt);
                 printStream.close();
-
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
-                //errMessages( "Something wrong! " + e.toString() + "\n");
             }
         }
     }
 
-    public void sendNotification(View view) {
+    public void sendNotification() {
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.start_icon)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle("MySignal")
+                        .setContentText("New User Try Connecting!");
         NotificationManager mNotificationManager = (NotificationManager)
                 getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
         mNotificationManager.notify(001, mBuilder.build());
